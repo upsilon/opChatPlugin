@@ -11,5 +11,5 @@
   'body' => get_slot('body'),
   'yes_url' => url_for('@chatroom_close?id='.$room->getId()),
   'no_method' => 'get',
-  'no_url' => url_for($room->isOpened() ? '@chatroom_show'.$room->getId() : '@chatroom_list'),
+  'no_url' => url_for($room->isOpened() ? '@chatroom_show?id='.$room->getId() : '@chatroom_list'),
 )) ?>
