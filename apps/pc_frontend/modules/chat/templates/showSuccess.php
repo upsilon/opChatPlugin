@@ -3,7 +3,6 @@
 <?php if ($room->isEditable($sf_user)): ?>
 <div style="float: right">
 <?php echo link_to('[編集]', '@chatroom_edit?id='.$room->id) ?>&nbsp;
-<?php echo link_to('[終了]', '@chatroom_close_confirm?id='.$room->id) ?>
 </div>
 <?php endif; ?>
 <div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id); ?></div>
