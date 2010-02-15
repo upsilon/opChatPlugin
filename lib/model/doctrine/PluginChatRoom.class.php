@@ -18,4 +18,9 @@ abstract class PluginChatRoom extends BaseChatRoom
   {
     return ($this->member_id == $user->getMemberId());
   }
+
+  public function isWritable()
+  {
+    return $this->isOpened() && !$this->is_closed;
+  }
 }

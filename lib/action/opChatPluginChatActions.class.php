@@ -27,7 +27,7 @@ class opChatPluginChatActions extends sfActions
   {
     $room = $this->getRoute()->getObject();
 
-    $this->forward404Unless($room->isOpened());
+    $this->forward404Unless($room->isWritable());
 
     $chat = new ChatContent();
     $chat->setChatRoom($room);
@@ -43,7 +43,7 @@ class opChatPluginChatActions extends sfActions
   {
     $room = $this->getRoute()->getObject();
 
-    $this->forward404Unless($room->isOpened());
+    $this->forward404Unless($room->isWritable());
 
     $member = $this->getUser()->getMember();
     Doctrine::getTable('ChatRoomMember')->update($member, $room);
@@ -82,6 +82,8 @@ class opChatPluginChatActions extends sfActions
     $room = $this->getRoute()->getObject();
     // もし、作成者でない場合は404画面に飛ばす
     $this->forward404Unless($room->isEditable($this->getUser()));
+
+    $this->forward404Unless(!$room->is_closed);
 
     $this->form = new ChatRoomForm($room);
   }
