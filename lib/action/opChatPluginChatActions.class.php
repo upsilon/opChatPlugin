@@ -39,6 +39,18 @@ class opChatPluginChatActions extends sfActions
     $this->redirect('@chatroom_show?id='.$room->getId());
   }
 
+  public function executeHeartbeat(sfWebRequest $request)
+  {
+    $room = $this->getRoute()->getObject();
+
+    $this->forward404Unless($room->isOpened());
+
+    $member = $this->getUser()->getMember();
+    Doctrine::getTable('ChatRoomMember')->update($member, $room);
+
+    return sfView::HEADER_ONLY;
+  }
+
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new ChatRoomForm();
