@@ -12,6 +12,18 @@ ChatRoom:
   relations:
     Member: { onDelete: cascade }
 
+ChatRoomMember:
+  actAs: [Timestampable]
+  columns:
+    member_id: { type: integer(4), primary: true }
+    chat_room_id: { type: integer(5), primary: true }
+  relations:
+    Member: { onDelete: set null }
+    ChatRoom: { onDelete: cascade, foreignAlias: ChatRoomMember }
+  indexes:
+    member_id_chat_room_id:
+      fields: [member_id, chat_room_id]
+
 ChatContent:
   actAs: [Timestampable]
   columns:
