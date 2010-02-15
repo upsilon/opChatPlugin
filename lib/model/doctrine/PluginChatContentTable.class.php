@@ -27,13 +27,4 @@ class PluginChatContentTable extends Doctrine_Table
       ->where('chat_room_id = ?', $room_id)
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
-
-  public function getMemberList($room_id)
-  {
-    $query = $this->createQuery()
-      ->select('')
-      ->where('chat_room_id = ?', $room_id)
-      ->andWhere('level >= 9')
-      ->groupBy('member_id');
-  }
 }
