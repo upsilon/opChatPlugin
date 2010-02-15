@@ -1,0 +1,28 @@
+options:
+  charset: utf-8
+
+ChatRoom:
+  actAs: [Timestampable]
+  columns:
+    id: { type: integer(5), primary: true, autoincrement: true }
+    member_id: { type: integer(4), notnull: true }
+    open_date: { type: timestamp }
+    is_closed: { type: boolean, notnull: true, default: false }
+    title: { type: string, notnull: true }
+  relations:
+    Member: { onDelete: cascade }
+
+ChatContent:
+  actAs: [Timestampable]
+  columns:
+    id: { type: integer(10), primary: true, autoincrement: true }
+    member_id: { type: integer(4), notnull: true }
+    chat_room_id: { type: integer(5), notnull: true }
+    number: { type: integer(10) }
+    level: { type: integer(2), notnull: true, default: 5 }
+    command: { type: string }
+    body: { type: string, notnull: true }
+  relations:
+    Member: { onDelete: set null }
+    ChatRoom: { onDelete: cascade, foreignAlias: ChatContent }
+

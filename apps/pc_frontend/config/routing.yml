@@ -1,0 +1,4 @@
+chat:
+  class: opChatPluginFrontendRouteCollection
+  options: { name: chat }
+

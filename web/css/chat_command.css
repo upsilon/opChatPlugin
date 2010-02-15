@@ -1,0 +1,52 @@
+dd.red {
+  color: red;
+}
+
+dd.blue {
+  color: blue;
+}
+
+dd.green {
+  color: green;
+}
+
+dd.white {
+  color: white;
+}
+
+dd.micro {
+  font-size: 50%;
+}
+
+dd.small {
+  font-size: 75%;
+}
+
+dd.big {
+  font-size: 125%;
+}
+
+dd.mega {
+  font-size: 150%;
+}
+
+dd.giga {
+  font-size: 175%;
+}
+
+dd.tera {
+  font-size: 200%;
+}
+
+dd.bold {
+  font-weight: bold;
+}
+
+dd.italic {
+  font-style: italic;
+}
+
+dd.message {
+  color: maroon;
+}
+

@@ -1,0 +1,9 @@
+Navigation:
+  secure_global_navigation_vote:
+    type: "secure_global"
+    uri: "@chatroom_list"
+    sort_order: 45
+    Translation:
+      ja_JP:
+        caption: "チャット"
+

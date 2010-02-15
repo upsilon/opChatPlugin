@@ -1,0 +1,8 @@
+showSuccess:
+  stylesheets:
+    - /opChatPlugin/css/chat
+    - /opChatPlugin/css/chat_command
+  javascripts:
+    - %SF_PROTOTYPE_WEB_DIR%/js/prototype
+    - /opChatPlugin/js/chat
+
