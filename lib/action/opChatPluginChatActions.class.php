@@ -13,14 +13,22 @@ class opChatPluginChatActions extends sfActions
 
     $this->forward404Unless($room->isOpened());
 
+    $last = $request->getParameter('last', 0);
+    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room->id, $last);
+
+    $this->memberlist = array();
+
+    if ($request->isXmlHttpRequest())
+    {
+      return $this->renderPartial('chat/chatview');
+    }
+
     $chat = new ChatContent();
     $chat->setChatRoom($room);
     $chat->setMember($this->getUser()->getMember());
     $this->form = new ChatContentForm($chat);
 
     $this->room = $room;
-    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room->id);
-    $this->memberlist = array();
   }
 
   public function executePost(sfWebRequest $request)
@@ -35,6 +43,11 @@ class opChatPluginChatActions extends sfActions
 
     $this->form = new ChatContentForm($chat);
     $this->form->bindAndSave($request->getParameter('chat_content'));
+
+    if ($request->isXmlHttpRequest())
+    {
+      $this->forward('chat', 'show');
+    }
 
     $this->redirect('@chatroom_show?id='.$room->getId());
   }

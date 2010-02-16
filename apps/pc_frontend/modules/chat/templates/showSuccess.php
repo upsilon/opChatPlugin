@@ -1,3 +1,5 @@
+<?php use_helper('Javascript') ?>
+
 <?php slot('chatroom_body'); ?>
 
 <?php if ($room->isEditable($sf_user)): ?>
@@ -9,7 +11,9 @@
 
 <table id="chat"><tr>
 <td id="chatview">
-<?php include_partial('chatview', array('list' => $chatlist)) ?>
+<dl id="chatview_dl">
+<?php include_partial('chatview', array('chatlist' => $chatlist)) ?>
+</dl>
 </td>
 <td id="memberlist">
 <?php include_partial('memberlist', array('list' => $memberlist)) ?>
@@ -34,4 +38,11 @@
 <?php op_include_box('chatroom_body', get_slot('chatroom_body'), array(
   'title' => $room->getTitle(),
 )) ?>
+
+<?php echo javascript_tag('
+var url = {
+  post: "'.url_for('@chatroom_post?id='.$room->id).'",
+  show: "'.url_for('@chatroom_show?id='.$room->id).'"
+};
+') ?>
 

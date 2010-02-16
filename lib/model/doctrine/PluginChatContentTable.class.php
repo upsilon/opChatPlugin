@@ -9,11 +9,12 @@
  */
 class PluginChatContentTable extends Doctrine_Table
 {
-  public function getList($room_id, $count = 20)
+  public function getList($room_id, $last = 0, $count = 20)
   {
     $query = $this->createQuery()
       ->where('chat_room_id = ?', $room_id)
       ->andWhere('level >= 5')
+      ->andWhere('number > ?', $last)
       ->orderBy('id DESC')
       ->limit($count);
 
