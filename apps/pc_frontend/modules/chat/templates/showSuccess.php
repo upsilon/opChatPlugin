@@ -10,13 +10,15 @@
 <div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id); ?></div>
 
 <table id="chat"><tr>
-<td id="chatview">
-<dl id="chatview_dl">
+<td>
+<dl id="chatview">
 <?php include_partial('chatview', array('chatlist' => $chatlist)) ?>
 </dl>
 </td>
-<td id="memberlist">
+<td style="width: 150px">
+<dl id="memberlist">
 <?php include_partial('memberlist', array('list' => $memberlist)) ?>
+</dl>
 </td>
 </tr></table>
 
