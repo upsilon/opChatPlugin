@@ -1,3 +1,6 @@
+var updateInterval = 5000;
+var heartbeatInterval = 30000;
+
 var lastID = 0;
 
 function checkLastID()
@@ -10,6 +13,7 @@ function checkLastID()
 function update() {
   new Ajax.Updater('chatview', url['show'], {
     method: 'get',
+    asynchronous: false,
     parameters: { last: lastID },
     insertion: Insertion.Bottom,
     onComplete: checkLastID
@@ -26,6 +30,23 @@ function post(param) {
   });
 }
 
+function heartbeat() {
+  new Ajax.Request(url['heartbeat'], {
+    method: 'post',
+    asynchronous: false
+  });
+}
+
+function updateTimer() {
+  update();
+  setTimeout(updateTimer, updateInterval);
+}
+
+function heartbeatTimer() {
+  heartbeat();
+  setTimeout(heartbeatTimer, heartbeatInterval);
+}
+
 window.onload = function () {
   checkLastID();
 
@@ -39,4 +60,7 @@ window.onload = function () {
 
     return false;
   };
+
+  setTimeout(updateTimer, updateInterval);
+  setTimeout(heartbeatTimer, heartbeatInterval);
 };

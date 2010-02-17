@@ -49,7 +49,7 @@ class opChatPluginFrontendRouteCollection extends sfRouteCollection
       'chatroom_heartbeat' => new sfDoctrineRoute(
         '/chat/heartbeat/:id',
         array('module' => 'chat', 'action' => 'heartbeat'),
-        array('id' => '\d+', 'sf_method' => array('get')),
+        array('id' => '\d+', 'sf_method' => array('post')),
         array('model' => 'ChatRoom', 'type' => 'object')
       ),
       'chatroom_close_confirm' => new sfDoctrineRoute(
