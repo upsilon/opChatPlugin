@@ -8,7 +8,7 @@ function checkLastID()
 }
 
 function update() {
-  new Ajax.Updater('chatview_dl', url['show'], {
+  new Ajax.Updater('chatview', url['show'], {
     method: 'get',
     parameters: { last: lastID },
     insertion: Insertion.Bottom,
@@ -18,7 +18,7 @@ function update() {
 
 function post(param) {
   param['last'] = lastID;
-  new Ajax.Updater('chatview_dl', url['post'], {
+  new Ajax.Updater('chatview', url['post'], {
     method: 'post',
     parameters: param,
     insertion: Insertion.Bottom,
