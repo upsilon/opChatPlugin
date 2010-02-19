@@ -12,6 +12,7 @@ class opChatPluginChatActions extends sfActions
     $room = $this->getRoute()->getObject();
     $member = $this->getUser()->getMember();
 
+    Doctrine::getTable('ChatRoomMember')->login($room, $member);
     Doctrine::getTable('ChatContent')->login($room, $member);
 
     $this->redirect('@chatroom_show?id='.$room->id);
@@ -22,6 +23,7 @@ class opChatPluginChatActions extends sfActions
     $room = $this->getRoute()->getObject();
     $member = $this->getUser()->getMember();
 
+    Doctrine::getTable('ChatRoomMember')->logout($room, $member);
     Doctrine::getTable('ChatContent')->logout($room, $member);
 
     $this->redirect('@chatroom_list');

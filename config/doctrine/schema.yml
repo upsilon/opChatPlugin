@@ -17,6 +17,7 @@ ChatRoomMember:
   columns:
     member_id: { type: integer(4), primary: true }
     chat_room_id: { type: integer(5), primary: true }
+    is_active: { type: boolean, notnull: true, default: false }
   relations:
     Member: { onDelete: set null }
     ChatRoom: { onDelete: cascade, foreignAlias: ChatRoomMember }
