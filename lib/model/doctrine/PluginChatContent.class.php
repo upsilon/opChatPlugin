@@ -31,6 +31,13 @@ abstract class PluginChatContent extends BaseChatContent
       } 
     }
 
-    $this->command = trim($newCommand);
+    $this->command = $newCommand;
+
+    if ($this->level > 5)
+    {
+      $this->command .= ' message';
+    }
+
+    $this->command = trim($this->command);
   }
 }

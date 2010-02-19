@@ -28,4 +28,24 @@ class PluginChatContentTable extends Doctrine_Table
       ->where('chat_room_id = ?', $room_id)
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
+
+  public function login($room, $member)
+  {
+    $obj = new ChatContent();
+    $obj->ChatRoom = $room;
+    $obj->Member = $member;
+    $obj->level = 9;
+    $obj->body = $member->name.' さんがログインしました';
+    $obj->save();
+  }
+
+  public function logout($room, $member)
+  {
+    $obj = new ChatContent();
+    $obj->ChatRoom = $room;
+    $obj->Member = $member;
+    $obj->level = 10;
+    $obj->body = $member->name.' さんがログアウトしました';
+    $obj->save();
+  }
 }

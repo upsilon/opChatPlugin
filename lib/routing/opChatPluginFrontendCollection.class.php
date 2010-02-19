@@ -34,6 +34,18 @@ class opChatPluginFrontendRouteCollection extends sfRouteCollection
         array('id' => '\d+', 'sf_method' => array('post')),
         array('model' => 'ChatRoom', 'type' => 'object')
       ),
+      'chatroom_login' => new sfDoctrineRoute(
+        '/chat/login/:id',
+        array('module' => 'chat', 'action' => 'login'),
+        array('id' => '\d+', 'sf_method' => array('get')),
+        array('model' => 'ChatRoom', 'type' => 'object')
+      ),
+      'chatroom_logout' => new sfDoctrineRoute(
+        '/chat/logout/:id',
+        array('module' => 'chat', 'action' => 'logout'),
+        array('id' => '\d+', 'sf_method' => array('get')),
+        array('model' => 'ChatRoom', 'type' => 'object')
+      ),
       'chatroom_show' => new sfDoctrineRoute(
         '/chat/show/:id',
         array('module' => 'chat', 'action' => 'show'),

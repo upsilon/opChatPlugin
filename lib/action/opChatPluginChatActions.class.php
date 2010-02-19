@@ -7,6 +7,26 @@ class opChatPluginChatActions extends sfActions
     $this->pager = Doctrine::getTable('ChatRoom')->getListPager($request->getParameter('page'));
   }
 
+  public function executeLogin(sfWebRequest $request)
+  {
+    $room = $this->getRoute()->getObject();
+    $member = $this->getUser()->getMember();
+
+    Doctrine::getTable('ChatContent')->login($room, $member);
+
+    $this->redirect('@chatroom_show?id='.$room->id);
+  }
+
+  public function executeLogout(sfWebRequest $request)
+  {
+    $room = $this->getRoute()->getObject();
+    $member = $this->getUser()->getMember();
+
+    Doctrine::getTable('ChatContent')->logout($room, $member);
+
+    $this->redirect('@chatroom_list');
+  }
+
   public function executeShow(sfWebRequest $request)
   {
     $room = $this->getRoute()->getObject();
