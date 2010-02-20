@@ -29,7 +29,7 @@ class PluginChatContentTable extends Doctrine_Table
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 
-  public function login($room, $member)
+  public function login($member, $room)
   {
     $obj = new ChatContent();
     $obj->ChatRoom = $room;
@@ -39,7 +39,7 @@ class PluginChatContentTable extends Doctrine_Table
     $obj->save();
   }
 
-  public function logout($room, $member)
+  public function logout($member, $room)
   {
     $obj = new ChatContent();
     $obj->ChatRoom = $room;
