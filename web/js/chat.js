@@ -11,6 +11,11 @@ function checkLastID()
 }
 
 function update() {
+  new Ajax.Updater('memberlist', url['show'], {
+    method: 'get',
+    asynchronous: false,
+    parameters: { view: 'member' }
+  });
   new Ajax.Updater('chatview', url['show'], {
     method: 'get',
     asynchronous: false,

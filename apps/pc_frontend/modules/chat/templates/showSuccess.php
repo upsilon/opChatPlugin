@@ -17,7 +17,7 @@
 </td>
 <td style="width: 150px">
 <dl id="memberlist">
-<?php include_partial('memberlist', array('list' => $memberlist)) ?>
+<?php include_partial('memberlist', array('memberlist' => $memberlist)) ?>
 </dl>
 </td>
 </tr></table>

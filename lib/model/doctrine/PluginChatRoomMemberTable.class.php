@@ -35,4 +35,22 @@ class PluginChatRoomMemberTable extends Doctrine_Table
       $obj->save();
     }
   }
+
+  public function getMembers($room_id)
+  {
+    $query = $this->createQuery()
+      ->where('chat_room_id = ?', $room_id)
+      ->andWhere('is_active = true');
+
+    $result = array();
+    foreach ($query->execute() as $record)
+    {
+      if (strtotime($record->updated_at) > strtotime('-3 minute'))
+      {
+        $result[] = $record;
+      }
+    }
+
+    return $result;
+  }
 }

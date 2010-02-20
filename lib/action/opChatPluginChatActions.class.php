@@ -38,7 +38,7 @@ class opChatPluginChatActions extends sfActions
     $last = $request->getParameter('last', 0);
     $this->chatlist = Doctrine::getTable('ChatContent')->getList($room->id, $last);
 
-    $this->memberlist = array();
+    $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room->id);
 
     if ($request->isXmlHttpRequest())
     {
