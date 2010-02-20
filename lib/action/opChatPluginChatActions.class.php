@@ -50,9 +50,9 @@ class opChatPluginChatActions extends sfActions
     $this->forward404Unless($room->isOpened());
 
     $last = $request->getParameter('last', 0);
-    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room->id, $last);
+    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
 
-    $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room->id);
+    $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room);
 
     if ($request->isXmlHttpRequest())
     {
@@ -131,7 +131,7 @@ class opChatPluginChatActions extends sfActions
     {
       if (is_null($room->open_date))
       {
-        $this->redirect('@chatroom_show?id='.$room->id);
+        $this->redirect('@chatroom_login?id='.$room->id);
       }
       else
       {

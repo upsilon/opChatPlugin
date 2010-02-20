@@ -9,10 +9,10 @@
  */
 class PluginChatContentTable extends Doctrine_Table
 {
-  public function getList($room_id, $last = 0, $count = 20)
+  public function getList($room, $last = 0, $count = 20)
   {
     $query = $this->createQuery()
-      ->where('chat_room_id = ?', $room_id)
+      ->where('chat_room_id = ?', $room->id)
       ->andWhere('level >= 5')
       ->andWhere('number > ?', $last)
       ->orderBy('id DESC')
@@ -21,11 +21,11 @@ class PluginChatContentTable extends Doctrine_Table
     return array_reverse(iterator_to_array($query->execute()));
   }
 
-  public function getLastNumber($room_id)
+  public function getLastNumber($room)
   {
     return $this->createQuery()
       ->select('MAX(number)')
-      ->where('chat_room_id = ?', $room_id)
+      ->where('chat_room_id = ?', $room->id)
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 

@@ -36,10 +36,10 @@ class PluginChatRoomMemberTable extends Doctrine_Table
     }
   }
 
-  public function getMembers($room_id)
+  public function getMembers($room)
   {
     $query = $this->createQuery()
-      ->where('chat_room_id = ?', $room_id)
+      ->where('chat_room_id = ?', $room->id)
       ->andWhere('is_active = true');
 
     $result = array();
