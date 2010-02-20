@@ -23,7 +23,7 @@
 <dd>
 <?php if ($item->isOpened()): ?>
 <?php echo $item->is_closed ? '[終了] ' : '' ?>
-<?php echo link_to(sprintf('%s (%d)', $item->title, count($item->ChatContent)), '@chatroom_show?id='.$item->id) ?>
+<?php echo link_to(sprintf('%s (%d)', $item->title, count($item->ChatContent)), '@chatroom_login?id='.$item->id) ?>
 <?php else: ?>
 <?php echo $item->title ?>
 <?php endif; ?>

@@ -2,11 +2,12 @@
 
 <?php slot('chatroom_body'); ?>
 
-<?php if ($room->isEditable($sf_user)): ?>
 <div style="float: right">
+<?php if ($room->isEditable($sf_user)): ?>
 <?php echo link_to('[編集]', '@chatroom_edit?id='.$room->id) ?>&nbsp;
-</div>
 <?php endif; ?>
+<?php echo link_to('[ログアウト]', '@chatroom_logout?id='.$room->id) ?>
+</div>
 <div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id); ?></div>
 
 <table id="chat"><tr>
