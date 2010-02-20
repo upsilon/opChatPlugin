@@ -53,4 +53,17 @@ class PluginChatRoomMemberTable extends Doctrine_Table
 
     return $result;
   }
+
+  public function isActive($room, $member)
+  {
+    $obj = $this->find(array($member->id, $room->id));
+    if ($obj)
+    {
+      return $obj->is_active;
+    }
+    else
+    {
+      return false;
+    }
+  }
 }
