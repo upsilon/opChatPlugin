@@ -42,7 +42,15 @@ class opChatPluginChatActions extends sfActions
 
     if ($request->isXmlHttpRequest())
     {
-      return $this->renderPartial('chat/chatview');
+      switch ($request->getParameter('view'))
+      {
+        case 'chat':
+          return $this->renderPartial('chat/chatview');
+        case 'member':
+          return $this->renderPartial('chat/memberlist');
+        default:
+          return sfView::NONE;
+      }
     }
 
     $chat = new ChatContent();
@@ -68,6 +76,7 @@ class opChatPluginChatActions extends sfActions
 
     if ($request->isXmlHttpRequest())
     {
+      $request->setParameter('view', 'chat');
       $this->forward('chat', 'show');
     }
 

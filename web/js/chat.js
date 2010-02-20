@@ -14,7 +14,7 @@ function update() {
   new Ajax.Updater('chatview', url['show'], {
     method: 'get',
     asynchronous: false,
-    parameters: { last: lastID },
+    parameters: { view: 'chat', last: lastID },
     insertion: Insertion.Bottom,
     onComplete: checkLastID
   });
