@@ -3,9 +3,18 @@
  */
 class PluginChatRoomMemberTable extends Doctrine_Table
 {
+  public function findOne($member, $room)
+  {
+    return $this->createQuery()
+      ->where('member_id = ?', $member->id)
+      ->andWhere('chat_room_id = ?', $room->id)
+      ->limit(1)
+      ->fetchOne();
+  }
+
   public function login($member, $room)
   {
-    $obj = $this->find(array($member->id, $room->id));
+    $obj = $this->findOne($member, $room);
     if (!$obj)
     {
       $obj = new ChatRoomMember();
@@ -18,7 +27,7 @@ class PluginChatRoomMemberTable extends Doctrine_Table
 
   public function logout($member, $room)
   {
-    $obj = $this->find(array($member->id, $room->id));
+    $obj = $this->findOne($member, $room);
     if ($obj)
     {
       $obj->is_active = false;
@@ -28,7 +37,7 @@ class PluginChatRoomMemberTable extends Doctrine_Table
 
   public function update($member, $room)
   {
-    $obj = $this->find(array($member->id, $room->id));
+    $obj = $this->findOne($member, $room);
     if ($obj)
     {
       $obj->updated_at = null;
@@ -56,7 +65,7 @@ class PluginChatRoomMemberTable extends Doctrine_Table
 
   public function isActive($room, $member)
   {
-    $obj = $this->find(array($member->id, $room->id));
+    $obj = $this->findOne($member, $room);
     if ($obj)
     {
       return $obj->is_active;
