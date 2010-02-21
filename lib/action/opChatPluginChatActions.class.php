@@ -32,7 +32,6 @@ class opChatPluginChatActions extends sfActions
     $member = $this->getUser()->getMember();
 
     $this->forward404Unless($room->isOpened());
-    $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
@@ -52,9 +51,12 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->forward404Unless($room->isOpened());
-    $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
-    $this->redirectUnless($isActive, '@chatroom_list');
+    if (!$request->isXmlHttpRequest())
+    {
+      $this->redirectIf($room->is_closed, '@chatroom_log?id='.$room->id);
+    }
+
+    $this->forward404Unless($room->isWritable() && $isActive);
 
     $last = $request->getParameter('last', 0);
     $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
@@ -89,8 +91,7 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->forward404Unless($room->isWritable());
-    $this->redirectUnless($isActive, '@chatroom_list');
+    $this->forward404Unless($room->isWritable() && $isActive);
 
     $chat = new ChatContent();
     $chat->setChatRoom($room);
@@ -115,8 +116,7 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->forward404Unless($room->isWritable());
-    $this->redirectUnless($isActive, '@chatroom_list');
+    $this->forward404Unless($room->isWritable() && $isActive);
 
     $member = $this->getUser()->getMember();
     Doctrine::getTable('ChatRoomMember')->update($member, $room);

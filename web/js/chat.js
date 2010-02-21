@@ -20,12 +20,12 @@ function chatviewUpdated() {
 }
 
 function update() {
-  new Ajax.Updater('memberlist', url['show'], {
+  new Ajax.Updater({success: 'memberlist'}, url['show'], {
     method: 'get',
     asynchronous: false,
     parameters: { view: 'member' }
   });
-  new Ajax.Updater('chatview', url['show'], {
+  new Ajax.Updater({success: 'chatview'}, url['show'], {
     method: 'get',
     asynchronous: false,
     parameters: { view: 'chat', last: lastID },
@@ -36,7 +36,7 @@ function update() {
 
 function post(param) {
   param['last'] = lastID;
-  new Ajax.Updater('chatview', url['post'], {
+  new Ajax.Updater({success: 'chatview'}, url['post'], {
     method: 'post',
     parameters: param,
     insertion: Insertion.Bottom,
