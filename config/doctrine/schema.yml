@@ -1,5 +1,5 @@
 options:
-  charset: utf-8
+  charset: utf8
 
 ChatRoom:
   actAs: [Timestampable]
