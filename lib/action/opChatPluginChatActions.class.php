@@ -12,6 +12,9 @@ class opChatPluginChatActions extends sfActions
     $room = $this->getRoute()->getObject();
     $member = $this->getUser()->getMember();
 
+    $this->forward404Unless($room->isOpened());
+    $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
+
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
     if (!$isActive)
@@ -27,6 +30,9 @@ class opChatPluginChatActions extends sfActions
   {
     $room = $this->getRoute()->getObject();
     $member = $this->getUser()->getMember();
+
+    $this->forward404Unless($room->isOpened());
+    $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
@@ -46,8 +52,9 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->redirectUnless($isActive, '@chatroom_list');
     $this->forward404Unless($room->isOpened());
+    $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
+    $this->redirectUnless($isActive, '@chatroom_list');
 
     $last = $request->getParameter('last', 0);
     $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
@@ -82,8 +89,8 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->redirectUnless($isActive, '@chatroom_list');
     $this->forward404Unless($room->isWritable());
+    $this->redirectUnless($isActive, '@chatroom_list');
 
     $chat = new ChatContent();
     $chat->setChatRoom($room);
@@ -108,8 +115,8 @@ class opChatPluginChatActions extends sfActions
 
     $isActive = Doctrine::getTable('ChatRoomMember')->isActive($member, $room);
 
-    $this->redirectUnless($isActive, '@chatroom_list');
     $this->forward404Unless($room->isWritable());
+    $this->redirectUnless($isActive, '@chatroom_list');
 
     $member = $this->getUser()->getMember();
     Doctrine::getTable('ChatRoomMember')->update($member, $room);
@@ -184,4 +191,15 @@ class opChatPluginChatActions extends sfActions
     $this->getUser()->setFlash('notice', $room->getTitle().' を終了しました');
     $this->redirect('@chatroom_list');
   }
+
+  public function executeLog(sfWebRequest $request)
+  {
+    $room = $this->getRoute()->getObject();
+
+    $this->forward404Unless($room->is_closed);
+
+    $this->room = $room;
+    $this->pager = Doctrine::getTable('ChatContent')->getListPager($room, $request->getParameter('page'));
+  }
+
 }

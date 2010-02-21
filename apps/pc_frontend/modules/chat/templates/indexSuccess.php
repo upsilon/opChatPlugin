@@ -22,8 +22,13 @@
 <dt><?php echo op_format_date($item->updated_at, 'f') ?></dt>
 <dd>
 <?php if ($item->isOpened()): ?>
-<?php echo $item->is_closed ? '[終了] ' : '' ?>
+
+<?php if ($item->is_closed): ?>
+[終了] <?php echo link_to(sprintf('%s (%d)', $item->title, count($item->ChatContent)), '@chatroom_log?id='.$item->id) ?>
+<?php else: ?>
 <?php echo link_to(sprintf('%s (%d)', $item->title, count($item->ChatContent)), '@chatroom_login?id='.$item->id) ?>
+<?php endif; ?>
+
 <?php else: ?>
 <?php echo $item->title ?>
 <?php endif; ?>

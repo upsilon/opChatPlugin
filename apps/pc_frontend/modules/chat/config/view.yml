@@ -6,3 +6,7 @@ showSuccess:
     - %SF_PROTOTYPE_WEB_DIR%/js/prototype
     - /opChatPlugin/js/chat
 
+logSuccess:
+  stylesheets:
+    - /opChatPlugin/css/chat_command
+

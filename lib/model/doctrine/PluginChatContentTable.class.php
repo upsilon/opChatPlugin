@@ -48,4 +48,18 @@ class PluginChatContentTable extends Doctrine_Table
     $obj->body = $member->name.' さんがログアウトしました';
     $obj->save();
   }
+
+  public function getListPager($room, $page = 1, $size = 20)
+  {
+    $query = $this->createQuery()
+      ->where('chat_room_id = ?', $room->id)
+      ->orderBy('updated_at');
+
+    $pager = new sfDoctrinePager('ChatContent', $size);
+    $pager->setQuery($query);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
+  }
 }

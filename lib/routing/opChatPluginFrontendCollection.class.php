@@ -76,6 +76,12 @@ class opChatPluginFrontendRouteCollection extends sfRouteCollection
         array('id' => '\d+', 'sf_method' => array('post')),
         array('model' => 'ChatRoom', 'type' => 'object')
       ),
+      'chatroom_log' => new sfDoctrineRoute(
+        '/chat/log/:id',
+        array('module' => 'chat', 'action' => 'log'),
+        array('id' => '\d+', 'sf_method' => array('get')),
+        array('model' => 'ChatRoom', 'type' => 'object')
+      ),
       // no default
       'chat_nodefaults' => new sfRoute(
         '/chat/*',
