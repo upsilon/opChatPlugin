@@ -3,11 +3,20 @@ var heartbeatInterval = 30000;
 
 var lastID = 0;
 
-function checkLastID()
-{
+function checkLastID() {
   var num = $('chatview').getElementsByClassName('number');
   if (num.length == 0) return;
   lastID = parseInt(num[num.length - 1].innerHTML);
+}
+
+function scroll(obj) {
+  // 一番下までスクロール
+  obj.scrollTop = 999999;
+}
+
+function chatviewUpdated() {
+  checkLastID();
+  scroll($('chatview'));
 }
 
 function update() {
@@ -21,7 +30,7 @@ function update() {
     asynchronous: false,
     parameters: { view: 'chat', last: lastID },
     insertion: Insertion.Bottom,
-    onComplete: checkLastID
+    onComplete: chatviewUpdated
   });
 }
 
@@ -31,7 +40,7 @@ function post(param) {
     method: 'post',
     parameters: param,
     insertion: Insertion.Bottom,
-    onComplete: checkLastID
+    onComplete: chatviewUpdated
   });
 }
 
@@ -53,7 +62,7 @@ function heartbeatTimer() {
 }
 
 window.onload = function () {
-  checkLastID();
+  chatviewUpdated();
 
   $('chat_content').onsubmit = function() {
     if ($F('chat_content_body') != '') {
