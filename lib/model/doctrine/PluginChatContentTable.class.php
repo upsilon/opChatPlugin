@@ -29,6 +29,13 @@ class PluginChatContentTable extends Doctrine_Table
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 
+  public function getCount($room)
+  {
+    return $this->createQuery()
+      ->where('chat_room_id = ?', $room->id)
+      ->count();
+  }
+
   public function login($member, $room)
   {
     $obj = new ChatContent();
