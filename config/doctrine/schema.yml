@@ -19,7 +19,7 @@ ChatRoomMember:
     chat_room_id: { type: integer(5), primary: true }
     is_active: { type: boolean, notnull: true, default: false }
   relations:
-    Member: { onDelete: set null }
+    Member: { onDelete: cascade }
     ChatRoom: { onDelete: cascade, foreignAlias: ChatRoomMember }
   indexes:
     member_id_chat_room_id:
@@ -29,7 +29,7 @@ ChatContent:
   actAs: [Timestampable]
   columns:
     id: { type: integer(10), primary: true, autoincrement: true }
-    member_id: { type: integer(4), notnull: true }
+    member_id: { type: integer(4) }
     chat_room_id: { type: integer(5), notnull: true }
     number: { type: integer(10) }
     level: { type: integer(2), notnull: true, default: 5 }
