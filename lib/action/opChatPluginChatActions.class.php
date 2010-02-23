@@ -106,7 +106,6 @@ class opChatPluginChatActions extends sfActions
 
     $this->forward404Unless($room->isWritable() && $room->isActive($member));
 
-    $member = $this->getUser()->getMember();
     Doctrine::getTable('ChatRoomMember')->update($member, $room);
 
     return sfView::HEADER_ONLY;
