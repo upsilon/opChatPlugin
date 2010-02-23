@@ -17,8 +17,7 @@ class opChatPluginChatActions extends sfActions
 
     if (!$room->isActive($member))
     {
-      Doctrine::getTable('ChatRoomMember')->login($member, $room);
-      Doctrine::getTable('ChatContent')->login($member, $room);
+      $room->login($member);
     }
 
     $this->redirect('@chatroom_show?id='.$room->id);
@@ -33,8 +32,7 @@ class opChatPluginChatActions extends sfActions
 
     if ($room->isActive($member))
     {
-      Doctrine::getTable('ChatRoomMember')->logout($member, $room);
-      Doctrine::getTable('ChatContent')->logout($member, $room);
+      $room->logout($member);
     }
 
     $this->redirect('@chatroom_list');

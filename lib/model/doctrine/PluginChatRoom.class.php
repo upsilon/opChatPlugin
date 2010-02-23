@@ -33,4 +33,16 @@ abstract class PluginChatRoom extends BaseChatRoom
   {
     return Doctrine::getTable('ChatContent')->getCount($this);
   }
+
+  public function login($member)
+  {
+    Doctrine::getTable('ChatRoomMember')->login($member, $this);
+    Doctrine::getTable('ChatContent')->login($member, $this);
+  }
+
+  public function logout($member)
+  {
+    Doctrine::getTable('ChatRoomMember')->logout($member, $this);
+    Doctrine::getTable('ChatContent')->logout($member, $this);
+  }
 }
