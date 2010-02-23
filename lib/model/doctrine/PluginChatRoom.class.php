@@ -24,6 +24,11 @@ abstract class PluginChatRoom extends BaseChatRoom
     return $this->isOpened() && !$this->is_closed;
   }
 
+  public function isActive($member)
+  {
+    return Doctrine::getTable('ChatRoomMember')->isActive($member, $this);
+  }
+
   public function countChatContent()
   {
     return Doctrine::getTable('ChatContent')->getCount($this);
