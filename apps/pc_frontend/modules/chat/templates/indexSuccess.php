@@ -1,3 +1,4 @@
+<?php use_helper('opChat'); ?>
 <?php op_include_box('chatroom_create_box',
   'チャットルームを作成することができます！',
   array(
@@ -18,28 +19,10 @@
 </div>
 <?php include_slot('pager'); ?>
 <dl>
-<?php foreach ($pager->getResults() as $item): ?>
-<dt><?php echo op_format_date($item->updated_at, 'f') ?></dt>
+<?php foreach ($pager->getResults() as $room): ?>
+<dt><?php echo op_format_date($room->updated_at, 'f') ?></dt>
 <dd>
-<?php if ($item->isOpened()): ?>
-
-<?php if ($item->is_closed): ?>
-[終了] <?php echo link_to(sprintf('%s (%d)', $item->title, $item->countChatContent()), '@chatroom_log?id='.$item->id) ?>
-<?php else: ?>
-<?php echo link_to(sprintf('%s (%d)', $item->title, $item->countChatContent()), '@chatroom_login?id='.$item->id) ?>
-<?php endif; ?>
-
-<?php else: ?>
-<?php echo $item->title ?>
-<?php endif; ?>
-
-<?php if (!is_null($item->open_date) && !$item->is_closed): ?>
-<?php echo '(開始: '.$item->open_date.')' ?>
-<?php endif; ?>
-
-<?php if ($item->isEditable($sf_user)): ?>
-<?php echo link_to('[編集]', '@chatroom_edit?id='.$item->id) ?>
-<?php endif; ?>
+<?php echo op_chat_room_link($room, $sf_user); ?>
 </dd>
 <?php endforeach; ?>
 </dl>
