@@ -95,8 +95,10 @@ class opChatPluginChatActions extends sfActions
       $request->setParameter('view', 'chat');
       $this->forward('chat', 'show');
     }
-
-    $this->redirect('@chatroom_show?id='.$room->getId());
+    else
+    {
+      $this->forward('chat', 'heartbeat');
+    }
   }
 
   public function executeHeartbeat(sfWebRequest $request)
@@ -108,7 +110,14 @@ class opChatPluginChatActions extends sfActions
 
     Doctrine::getTable('ChatRoomMember')->update($member, $room);
 
-    return sfView::HEADER_ONLY;
+    if ($request->isXmlHttpRequest())
+    {
+      return sfView::HEADER_ONLY;
+    }
+    else
+    {
+      $this->redirect('@chatroom_show?id='.$room->id);
+    }
   }
 
   public function executeNew(sfWebRequest $request)
