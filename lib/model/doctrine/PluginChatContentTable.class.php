@@ -15,7 +15,7 @@ class PluginChatContentTable extends Doctrine_Table
       ->where('chat_room_id = ?', $room->id)
       ->andWhere('level >= 5')
       ->andWhere('number > ?', $last)
-      ->orderBy('id DESC')
+      ->orderBy('number DESC')
       ->limit($count);
 
     return array_reverse(iterator_to_array($query->execute()));
@@ -60,7 +60,8 @@ class PluginChatContentTable extends Doctrine_Table
   {
     $query = $this->createQuery()
       ->where('chat_room_id = ?', $room->id)
-      ->orderBy('updated_at');
+      ->andWhere('level >= 5')
+      ->orderBy('number');
 
     $pager = new sfDoctrinePager('ChatContent', $size);
     $pager->setQuery($query);
