@@ -29,7 +29,7 @@
 <?php echo $form->renderHiddenFields() ?>
 <div>
 <?php echo $form['command']->renderLabel().': '.$form['command'] ?><br />
-<?php echo $form['body'] ?>
+<?php echo $form['body']->render(array('autocomplete' => 'off')) ?>
 <input type="submit" id="submit" value="送信" />
 </div>
 </form>
@@ -43,7 +43,7 @@
 )) ?>
 
 <?php echo javascript_tag('
-var url = {
+var url_for_op_chat = {
   post: "'.url_for('@chatroom_post?id='.$room->id).'",
   show: "'.url_for('@chatroom_show?id='.$room->id).'",
   heartbeat: "'.url_for('@chatroom_heartbeat?id='.$room->id).'"
