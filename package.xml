@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>opChatPlugin</name>
+ <channel>plugins.openpne.jp</channel>
+ <summary>opChatPlugin</summary>
+ <description>opChatPlugin</description>
+ <lead>
+  <name />
+  <user>upsilon</user>
+  <email />
+  <active>yes</active>
+ </lead>
+ <date>2010-03-07</date>
+ <time>21:27:34</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>Affero GPLv3</license>
+ <notes>
+none
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="77705a8cacadb4040f54e21ae9254b62" name="apps/pc_frontend/config/routing.yml" role="data" />
+   <file baseinstalldir="/" md5sum="cd4aa6824201ec72807732eae41672cc" name="apps/pc_frontend/modules/chat/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9cbbf2a71ebac31c5e9df7c44c2e0dec" name="apps/pc_frontend/modules/chat/config/security.yml" role="data" />
+   <file baseinstalldir="/" md5sum="0d8e358cc1d087f05672fa90c9a634ca" name="apps/pc_frontend/modules/chat/config/view.yml" role="data" />
+   <file baseinstalldir="/" md5sum="b3028c7ea7d42b861446cd739c8403b0" name="apps/pc_frontend/modules/chat/templates/closeConfirmSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="f3430daa0489d6aab8bc7c9db4d4da8a" name="apps/pc_frontend/modules/chat/templates/editSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="b9ef5832242df4657126c7157386493a" name="apps/pc_frontend/modules/chat/templates/indexSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="99d0e4582bfd53129f8a2c4635f20f8d" name="apps/pc_frontend/modules/chat/templates/logSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="2dfea6aed18a7ac5586320fb069de663" name="apps/pc_frontend/modules/chat/templates/newSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="5ace54fd43b0e54185540bd7c4df3068" name="apps/pc_frontend/modules/chat/templates/roomSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="a87430761808078c9e10e9e17e00d391" name="apps/pc_frontend/modules/chat/templates/showSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="9bdcf050a70604cba599401efc2a0357" name="apps/pc_frontend/modules/chat/templates/_chatview.php" role="data" />
+   <file baseinstalldir="/" md5sum="1f7552d1f243034d9f9f8b2f14d42cb1" name="apps/pc_frontend/modules/chat/templates/_memberlist.php" role="data" />
+   <file baseinstalldir="/" md5sum="ff89edb50dcd7cbf6f064f69968697c0" name="config/doctrine/schema.yml" role="data" />
+   <file baseinstalldir="/" md5sum="0c50ca3addb7a0ec75300d9e4ced08ff" name="data/fixtures/001_navigation.yml" role="data" />
+   <file baseinstalldir="/" md5sum="be4895ef4a861a916863d64e2f5e4884" name="lib/action/opChatPluginChatActions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2355924f4064b101fdb4cc1ea4e46f26" name="lib/filter/doctrine/PluginChatContentFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="54e2ba982382b1e9aa7b9373a90373c2" name="lib/filter/doctrine/PluginChatRoomFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d9057e31d9caf6b382c936d22ff1a8db" name="lib/filter/doctrine/PluginChatRoomMemberFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="ae96dc0a3c20a5f179dd78952c406a11" name="lib/form/doctrine/PluginChatContentForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="f999962d851b1b5befed0a41a5e7be50" name="lib/form/doctrine/PluginChatRoomForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="795005aaba547a24322ab09dc391c831" name="lib/form/doctrine/PluginChatRoomMemberForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="9f0b66b67d52b19f9a5dbfc4bf9e516f" name="lib/helper/opChatHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="574a4b0935b9fa9ff2461a26b22b0a4d" name="lib/model/doctrine/PluginChatContent.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="1bfbaa5ef39dab3931fb6c018afc7dec" name="lib/model/doctrine/PluginChatContentTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="6279b302f18dbeddd34f0a4465535a70" name="lib/model/doctrine/PluginChatRoom.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="3401ca14587dd6aa7dce31e03941e389" name="lib/model/doctrine/PluginChatRoomMember.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="689265c02b5f41897dc6f8bbcc211051" name="lib/model/doctrine/PluginChatRoomMemberTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d5318c0cc141fd608af8b5563c20fcff" name="lib/model/doctrine/PluginChatRoomTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="73b09b945eec8ae2a6b0d97f3e6a4c85" name="lib/routing/opChatPluginFrontendCollection.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="dad7a06cfb5b7128805b5e69f86a5a45" name="lib/widget/opWidgetFormDateTime.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="25b04d5e2306bbc79824f120dc88d181" name="test/bootstrap/database.php" role="data" />
+   <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
+   <file baseinstalldir="/" md5sum="4bfa4b596e946c8a283410a2e2ba4315" name="test/bootstrap/unit.php" role="data" />
+   <file baseinstalldir="/" md5sum="8471fade12b0760fab6715ffb8b8f9e4" name="test/fixtures/test_data.yml" role="data" />
+   <file baseinstalldir="/" md5sum="8a98cacfcc151f2808c399543fd52679" name="test/functional/mobile_frontend/skeletonActionsTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="1faa199e87c1ce270e86edee706b37fd" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="52440ab0abcc01c98551283f1e9942e1" name="test/unit/model/SkeletonTest.php" role="data" />
+   <file baseinstalldir="/" md5sum="b2c74f1edb32ea88ce8adbc4e10e75e1" name="web/css/chat.css" role="data" />
+   <file baseinstalldir="/" md5sum="cd805e73669e0a51560fc4744b88a2a7" name="web/css/chat_command.css" role="data" />
+   <file baseinstalldir="/" md5sum="eb002e2d316320255d11d98e3071741d" name="web/js/chat.js" role="data" />
+   <file baseinstalldir="/" md5sum="73f1eb20517c55bf9493b7dd6e480788" name="LICENSE" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.2.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-03-07</date>
+   <license>Affero GPLv3</license>
+   <notes>
+none
+   </notes>
+  </release>
+ </changelog>
+</package>
