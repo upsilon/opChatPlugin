@@ -1,5 +1,5 @@
 Navigation:
-  secure_global_navigation_vote:
+  secure_global_navigation_chatroom:
     type: "secure_global"
     uri: "@chatroom_list"
     sort_order: 45
