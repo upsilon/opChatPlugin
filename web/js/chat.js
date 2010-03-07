@@ -22,12 +22,10 @@ function chatviewUpdated() {
 function update() {
   new Ajax.Updater({success: 'memberlist'}, url['show'], {
     method: 'get',
-    asynchronous: false,
     parameters: { view: 'member' }
   });
   new Ajax.Updater({success: 'chatview'}, url['show'], {
     method: 'get',
-    asynchronous: false,
     parameters: { view: 'chat', last: lastID },
     insertion: Insertion.Bottom,
     onComplete: chatviewUpdated
@@ -47,7 +45,6 @@ function post(param) {
 function heartbeat() {
   new Ajax.Request(url['heartbeat'], {
     method: 'post',
-    asynchronous: false
   });
 }
 
