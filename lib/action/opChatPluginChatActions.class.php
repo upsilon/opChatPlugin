@@ -192,7 +192,7 @@ class opChatPluginChatActions extends sfActions
   {
     $room = $this->getRoute()->getObject();
 
-    $this->forward404Unless($room->is_closed);
+    $this->forward404Unless($room->isOpened());
 
     $this->room = $room;
     $this->pager = Doctrine::getTable('ChatContent')->getListPager($room, $request->getParameter('page'));
