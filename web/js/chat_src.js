@@ -5,9 +5,9 @@
   var heartbeatInterval = 30;
 
   var url = {};
-  var updateExecuter = null;
-  var updateMemberListExecuter = null;
-  var heartbeatExecuter = null;
+  var updateTimer = null;
+  var updateMemberListTimer = null;
+  var heartbeatTimer = null;
 
   var lastID = 0;
 
@@ -32,16 +32,30 @@
       method: 'get',
       parameters: { view: 'chat', last: lastID },
       insertion: Insertion.Bottom,
-      onComplete: chatviewUpdated
+      onComplete: function () {
+        chatviewUpdated();
+        startUpdateTimer();
+      },
     });
+  }
+
+  function startUpdateTimer() {
+    updateTimer = setTimeout(update, updateInterval * 1000);
   }
 
   function updateMemberList()
   {
     new Ajax.Updater({success: 'memberlist'}, url['show'], {
       method: 'get',
-      parameters: { view: 'member' }
+      parameters: { view: 'member' },
+      onComplete: function () {
+        startUpdateMemberListTimer();
+      },
     });
+  }
+
+  function startUpdateMemberListTimer() {
+    updateMemberListTimer = setTimeout(updateMemberList, updateMemberListInterval * 1000);
   }
 
   function post(param) {
@@ -53,14 +67,21 @@
       onComplete: function () {
         chatviewUpdated();
         $('chat_content_body').setValue('');
-      }
+      },
     });
   }
 
   function heartbeat() {
     new Ajax.Request(url['heartbeat'], {
       method: 'post',
+      onComplete: function () {
+        startHeartbeatTimer();
+      },
     });
+  }
+
+  function startHeartbeatTimer() {
+    heartbeatTimer = setTimeout(heartbeat, heartbeatInterval * 1000);
   }
 
   Event.observe(window, 'load', function(evt) {
@@ -77,8 +98,8 @@
       Event.stop(evt);
     });
 
-    updateExecuter = new PeriodicalExecuter(update, updateInterval);
-    updateMemberListExecuter = new PeriodicalExecuter(updateMemberList, updateMemberListInterval);
-    heartbeatExecuter = new PeriodicalExecuter(heartbeat, heartbeatInterval);
+    startUpdateTimer();
+    startUpdateMemberListTimer();
+    startHeartbeatTimer();
   });
 }());
