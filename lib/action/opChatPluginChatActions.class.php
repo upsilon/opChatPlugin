@@ -15,7 +15,7 @@ class opChatPluginChatActions extends sfActions
     $this->forward404Unless($room->isOpened());
     $this->redirectUnless(!$room->is_closed, '@chatroom_log?id='.$room->id);
 
-    if (!$room->isActive($member))
+    if (!$room->isActive($member->id))
     {
       $room->login($member);
     }
@@ -30,7 +30,7 @@ class opChatPluginChatActions extends sfActions
 
     $this->forward404Unless($room->isOpened());
 
-    if ($room->isActive($member))
+    if ($room->isActive($member->id))
     {
       $room->logout($member);
     }
@@ -41,14 +41,14 @@ class opChatPluginChatActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $room = $this->getRoute()->getObject();
-    $member = $this->getUser()->getMember();
+    $member_id = $this->getUser()->getMemberId();
 
     if (!$request->isXmlHttpRequest())
     {
       $this->redirectIf($room->is_closed, '@chatroom_log?id='.$room->id);
     }
 
-    $this->forward404Unless($room->isWritable() && $room->isActive($member));
+    $this->forward404Unless($room->isWritable() && $room->isActive($member_id));
 
     $last = $request->getParameter('last', 0);
     $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
@@ -69,8 +69,8 @@ class opChatPluginChatActions extends sfActions
     }
 
     $chat = new ChatContent();
-    $chat->setChatRoom($room);
-    $chat->setMember($member);
+    $chat->ChatRoom = $room;
+    $chat->member_id = $member_id;
     $this->form = new ChatContentForm($chat);
 
     $this->room = $room;
@@ -79,13 +79,13 @@ class opChatPluginChatActions extends sfActions
   public function executePost(sfWebRequest $request)
   {
     $room = $this->getRoute()->getObject();
-    $member = $this->getUser()->getMember();
+    $member_id = $this->getUser()->getMemberId();
 
-    $this->forward404Unless($room->isWritable() && $room->isActive($member));
+    $this->forward404Unless($room->isWritable() && $room->isActive($member_id));
 
     $chat = new ChatContent();
-    $chat->setChatRoom($room);
-    $chat->setMember($member);
+    $chat->ChatRoom = $room;
+    $chat->member_id = $member_id;
 
     $this->form = new ChatContentForm($chat);
     $this->form->bindAndSave($request->getParameter('chat_content'));
@@ -104,11 +104,11 @@ class opChatPluginChatActions extends sfActions
   public function executeHeartbeat(sfWebRequest $request)
   {
     $room = $this->getRoute()->getObject();
-    $member = $this->getUser()->getMember();
+    $member_id = $this->getUser()->getMemberId();
 
-    $this->forward404Unless($room->isWritable() && $room->isActive($member));
+    $this->forward404Unless($room->isWritable() && $room->isActive($member_id));
 
-    Doctrine::getTable('ChatRoomMember')->update($member, $room);
+    Doctrine::getTable('ChatRoomMember')->update($member_id, $room);
 
     if ($request->isXmlHttpRequest())
     {
@@ -128,7 +128,7 @@ class opChatPluginChatActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $room = new ChatRoom();
-    $room->setMember($this->getUser()->getMember());
+    $room->member_id = $this->getUser()->getMemberId();
     $this->form = new ChatRoomForm($room);
     if ($this->form->bindAndSave($request->getParameter('chat_room')))
     {
@@ -149,8 +149,10 @@ class opChatPluginChatActions extends sfActions
   {
     // モデルオブジェクトをルートから取得
     $room = $this->getRoute()->getObject();
+    $member_id = $this->getUser()->getMemberId();
+
     // もし、作成者でない場合は404画面に飛ばす
-    $this->forward404Unless($room->isEditable($this->getUser()));
+    $this->forward404Unless($room->isEditable($member_id));
 
     $this->forward404Unless(!$room->is_closed);
 
@@ -160,7 +162,9 @@ class opChatPluginChatActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $room = $this->getRoute()->getObject();
-    $this->forward404Unless($room->isEditable($this->getUser()));
+    $member_id = $this->getUser()->getMemberId();
+
+    $this->forward404Unless($room->isEditable($member_id));
     
     $this->form = new ChatRoomForm($room);
     if ($this->form->bindAndSave($request->getParameter('chat_room')))

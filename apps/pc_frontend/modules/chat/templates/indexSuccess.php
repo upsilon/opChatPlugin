@@ -22,7 +22,7 @@
 <?php foreach ($pager->getResults() as $room): ?>
 <dt><?php echo op_format_date($room->updated_at, 'f') ?></dt>
 <dd>
-<?php echo op_chat_room_link($room, $sf_user); ?>
+<?php echo op_chat_room_link($room, $sf_user->getMemberId()); ?>
 </dd>
 <?php endforeach; ?>
 </dl>

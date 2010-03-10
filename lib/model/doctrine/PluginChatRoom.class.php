@@ -14,9 +14,9 @@ abstract class PluginChatRoom extends BaseChatRoom
     return (strtotime($this->open_date) <= time());
   }
 
-  public function isEditable($user)
+  public function isEditable($member_id)
   {
-    return ($this->member_id == $user->getMemberId());
+    return ($this->member_id == $member_id);
   }
 
   public function isWritable()
@@ -24,9 +24,9 @@ abstract class PluginChatRoom extends BaseChatRoom
     return $this->isOpened() && !$this->is_closed;
   }
 
-  public function isActive($member)
+  public function isActive($member_id)
   {
-    return Doctrine::getTable('ChatRoomMember')->isActive($member, $this);
+    return Doctrine::getTable('ChatRoomMember')->isActive($member_id, $this);
   }
 
   public function countChatContent()
@@ -36,13 +36,13 @@ abstract class PluginChatRoom extends BaseChatRoom
 
   public function login($member)
   {
-    Doctrine::getTable('ChatRoomMember')->login($member, $this);
+    Doctrine::getTable('ChatRoomMember')->login($member->id, $this);
     Doctrine::getTable('ChatContent')->login($member, $this);
   }
 
   public function logout($member)
   {
-    Doctrine::getTable('ChatRoomMember')->logout($member, $this);
+    Doctrine::getTable('ChatRoomMember')->logout($member->id, $this);
     Doctrine::getTable('ChatContent')->logout($member, $this);
   }
 }

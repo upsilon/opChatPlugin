@@ -1,6 +1,6 @@
 <?php
 
-function op_chat_room_link($room, $member)
+function op_chat_room_link($room, $member_id)
 {
   $html = '';
   if ($room->is_closed)
@@ -28,7 +28,7 @@ function op_chat_room_link($room, $member)
   {
     $html .= ' (開始: '.$room->open_date.')';
   }
-  if ($room->isEditable($member))
+  if ($room->isEditable($member_id))
   {
     $html .= ' '.link_to('[編集]', '@chatroom_edit?id='.$room->id);
   }

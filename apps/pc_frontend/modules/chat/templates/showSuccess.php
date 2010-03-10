@@ -3,7 +3,7 @@
 <?php slot('chatroom_body'); ?>
 
 <div style="float: right">
-<?php if ($room->isEditable($sf_user)): ?>
+<?php if ($room->isEditable($sf_user->getMemberId())): ?>
 <?php echo link_to('[編集]', '@chatroom_edit?id='.$room->id) ?>&nbsp;
 <?php endif; ?>
 <?php echo link_to('[ログアウト]', '@chatroom_logout?id='.$room->id) ?>
