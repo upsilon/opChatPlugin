@@ -16,7 +16,7 @@ abstract class PluginChatRoom extends BaseChatRoom
 
   public function isEditable($member_id)
   {
-    return ($this->member_id == $member_id);
+    return !$this->is_closed && $this->member_id == $member_id;
   }
 
   public function isWritable()

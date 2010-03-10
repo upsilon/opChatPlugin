@@ -154,8 +154,6 @@ class opChatPluginChatActions extends sfActions
     // もし、作成者でない場合は404画面に飛ばす
     $this->forward404Unless($room->isEditable($member_id));
 
-    $this->forward404Unless(!$room->is_closed);
-
     $this->form = new ChatRoomForm($room);
   }
 
