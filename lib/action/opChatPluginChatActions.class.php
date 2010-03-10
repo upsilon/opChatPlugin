@@ -51,7 +51,6 @@ class opChatPluginChatActions extends sfActions
     $this->forward404Unless($room->isWritable() && $room->isActive($member_id));
 
     $last = $request->getParameter('last', 0);
-    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
 
     $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room);
 
@@ -60,13 +59,18 @@ class opChatPluginChatActions extends sfActions
       switch ($request->getParameter('view'))
       {
         case 'chat':
-          return $this->renderPartial('chat/chatview');
+          $table = Doctrine::getTable('ChatContent');
+          $chat = $table->getList($room, $last);
+          $json = $table->getListJson($this->getController(), $chat);
+          return $this->responseJson($json);
         case 'member':
           return $this->renderPartial('chat/memberlist');
         default:
           return sfView::NONE;
       }
     }
+
+    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
 
     $chat = new ChatContent();
     $chat->ChatRoom = $room;
@@ -200,4 +204,10 @@ class opChatPluginChatActions extends sfActions
     $this->pager = Doctrine::getTable('ChatContent')->getListPager($room, $request->getParameter('page'));
   }
 
+  protected function responseJson($json)
+  {
+    $this->getResponse()->setHttpHeader('Content-type', 'application/json');
+
+    return $this->renderText($json);
+  }
 }

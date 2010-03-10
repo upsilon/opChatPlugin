@@ -11,6 +11,14 @@
 
   var lastID = 0;
 
+  var html = '<dt>'
+           + '<span class="number">#{number}</span>: '
+           + '<a href="#{member_url}">#{member_name}</a> '
+           + '#{created_at}'
+           + '</dt>'
+           + '<dd class="#{command}">#{body}</dd>';
+  var contentTemplate = new Template(html);
+
   function checkLastID() {
     var num = $('chatview').getElementsByClassName('number');
     if (num.length == 0) return;
@@ -22,18 +30,36 @@
     obj.scrollTop = 999999;
   }
 
-  function chatviewUpdated() {
+  function chatviewUpdated(response) {
+    var json = response.responseJSON;
+
+    if (!json || json.length == 0) {
+      return;
+    }
+
+    var html = '';
+    json.each(function (content) {
+      // 受信済みのIDを二度受信してしまった場合は破棄する
+      if (content.number <= lastID) {
+        return;
+      }
+
+      lastID = content.number;
+      html += contentTemplate.evaluate(content);
+    });
+    $('chatview').innerHTML += html;
+
     checkLastID();
     scroll($('chatview'));
   }
 
   function update() {
-    new Ajax.Updater({success: 'chatview'}, url['show'], {
+    new Ajax.Request(url['show'], {
       method: 'get',
       parameters: { view: 'chat', last: lastID },
       insertion: Insertion.Bottom,
-      onComplete: function () {
-        chatviewUpdated();
+      onComplete: function (response) {
+        chatviewUpdated(response);
         startUpdateTimer();
       },
     });
@@ -60,12 +86,12 @@
 
   function post(param) {
     param['last'] = lastID;
-    new Ajax.Updater({success: 'chatview'}, url['post'], {
+    new Ajax.Request(url['post'], {
       method: 'post',
       parameters: param,
       insertion: Insertion.Bottom,
-      onComplete: function () {
-        chatviewUpdated();
+      onComplete: function (response) {
+        chatviewUpdated(response);
         $('chat_content_body').setValue('');
       },
     });
@@ -86,7 +112,9 @@
 
   Event.observe(window, 'load', function(evt) {
     url = url_for_op_chat;
-    chatviewUpdated();
+
+    checkLastID();
+    scroll($('chatview'));
 
     Event.observe('chat_content', 'submit', function(evt) {
       if ($F('chat_content_body') != '') {

@@ -21,6 +21,24 @@ class PluginChatContentTable extends Doctrine_Table
     return array_reverse(iterator_to_array($query->execute()));
   }
 
+  public function getListJson($controller, $contents)
+  {
+    $result = array();
+    foreach ($contents as $content)
+    {
+      $result[] = array(
+        'number'      => $content->number,
+        'member_url'  => $controller->genUrl('@obj_member_profile?id='.$content->member_id),
+        'member_name' => $content->Member->name,
+        'command'     => $content->command,
+        'body'        => $content->body,
+        'created_at'  => $content->created_at,
+      );
+    }
+
+    return json_encode($result);
+  }
+
   public function getLastNumber($room)
   {
     return $this->createQuery()
