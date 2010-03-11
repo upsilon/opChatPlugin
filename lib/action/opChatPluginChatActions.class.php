@@ -62,7 +62,7 @@ class opChatPluginChatActions extends sfActions
           $table = Doctrine::getTable('ChatContent');
           $chat = $table->getList($room, $last);
           $json = $table->getListJson($this->getController(), $chat);
-          return $this->responseJson($json);
+          return $this->renderJson($json);
         case 'member':
           return $this->renderPartial('chat/memberlist');
         default:
@@ -204,7 +204,7 @@ class opChatPluginChatActions extends sfActions
     $this->pager = Doctrine::getTable('ChatContent')->getListPager($room, $request->getParameter('page'));
   }
 
-  protected function responseJson($json)
+  protected function renderJson($json)
   {
     $this->getResponse()->setHttpHeader('Content-type', 'application/json');
 
