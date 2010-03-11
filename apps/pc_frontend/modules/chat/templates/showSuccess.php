@@ -14,6 +14,11 @@
 <td>
 <dl id="chatview">
 <?php include_partial('chatview', array('chatlist' => $chatlist)) ?>
+
+<dd id="restart" style="display: none">
+<a href="javascript:void(0)" id="restartLink">再接続する</a>
+</dd>
+
 </dl>
 </td>
 <td style="width: 150px">

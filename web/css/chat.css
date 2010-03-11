@@ -18,6 +18,14 @@
   margin-bottom: 5px;
 }
 
+#restart , #restart a:link {
+  color: red;
+}
+
+#restart a:hover {
+  color: #ff6666;
+}
+
 input#chat_content_body {
   width: 70%
 }

@@ -58,10 +58,12 @@
       method: 'get',
       parameters: { view: 'chat', last: lastID },
       insertion: Insertion.Bottom,
-      onComplete: function (response) {
+      onSuccess: function (response) {
         chatviewUpdated(response);
         startUpdateTimer();
       },
+      onFailure: timerStop,
+      onException: timerStop,
     });
   }
 
@@ -74,9 +76,11 @@
     new Ajax.Updater({success: 'memberlist'}, url['show'], {
       method: 'get',
       parameters: { view: 'member' },
-      onComplete: function () {
+      onSuccess: function () {
         startUpdateMemberListTimer();
       },
+      onFailure: timerStop,
+      onException: timerStop,
     });
   }
 
@@ -90,7 +94,7 @@
       method: 'post',
       parameters: param,
       insertion: Insertion.Bottom,
-      onComplete: function (response) {
+      onSuccess: function (response) {
         chatviewUpdated(response);
         $('chat_content_body').setValue('');
       },
@@ -100,14 +104,33 @@
   function heartbeat() {
     new Ajax.Request(url['heartbeat'], {
       method: 'post',
-      onComplete: function () {
+      onSuccess: function () {
         startHeartbeatTimer();
       },
+      onFailure: timerStop,
+      onException: timerStop,
     });
   }
 
   function startHeartbeatTimer() {
     heartbeatTimer = setTimeout(heartbeat, heartbeatInterval * 1000);
+  }
+
+  function timerStop() {
+    clearTimeout(updateTimer);
+    clearTimeout(updateMemberListTimer);
+    clearTimeout(heartbeatTimer);
+
+    $('restart').show();
+    scroll($('chatview'));
+  }
+
+  function timerStart() {
+    $('restart').hide();
+
+    startUpdateTimer();
+    startUpdateMemberListTimer();
+    startHeartbeatTimer();
   }
 
   Event.observe(window, 'load', function(evt) {
@@ -126,8 +149,11 @@
       Event.stop(evt);
     });
 
-    startUpdateTimer();
-    startUpdateMemberListTimer();
-    startHeartbeatTimer();
+    Event.observe('restartLink', 'click', function(evt) {
+      timerStart();
+      Event.stop(evt);
+    });
+
+    timerStart();
   });
 }());
