@@ -1,6 +1,6 @@
 (function(){var updateInterval=5;var updateMemberListInterval=60;var heartbeatInterval=30;var url={};var updateTimer=null;var updateMemberListTimer=null;var heartbeatTimer=null;var lastID=0;var html='<dt>'
 +'<span class="number">#{number}</span>: '
-+'<a href="#{member_url}">#{member_name}</a> '
++'<a href="#{member_url}" target="_blank">#{member_name}</a> '
 +'#{created_at}'
 +'</dt>'
 +'<dd class="#{command}">#{body}</dd>';var contentTemplate=new Template(html);function checkLastID(){var num=$('chatview').getElementsByClassName('number');if(num.length==0)return;lastID=parseInt(num[num.length-1].innerHTML);}

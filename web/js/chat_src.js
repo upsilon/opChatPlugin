@@ -13,7 +13,7 @@
 
   var html = '<dt>'
            + '<span class="number">#{number}</span>: '
-           + '<a href="#{member_url}">#{member_name}</a> '
+           + '<a href="#{member_url}" target="_blank">#{member_name}</a> '
            + '#{created_at}'
            + '</dt>'
            + '<dd class="#{command}">#{body}</dd>';
