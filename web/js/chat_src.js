@@ -79,7 +79,6 @@ var Chat = Class.create({
 
     $('chatview').innerHTML += html;
 
-    this.checkLastID();
     this.scroll($('chatview'));
   },
 
