@@ -1,36 +1,65 @@
-(function (){
-  // interval
-  var updateInterval = 5;
-  var updateMemberListInterval = 60;
-  var heartbeatInterval = 30;
+var Chat = Class.create({
+  initialize: function () {
+    // interval
+    this.updateInterval = 5;
+    this.updateMemberListInterval = 60;
+    this.heartbeatInterval = 30;
 
-  var url = {};
-  var updateTimer = null;
-  var updateMemberListTimer = null;
-  var heartbeatTimer = null;
+    this.url = {};
+    this.updateTimer = null;
+    this.updateMemberListTimer = null;
+    this.heartbeatTimer = null;
 
-  var lastID = 0;
+    this.lastID = 0;
 
-  var html = '<dt>'
-           + '<span class="number">#{number}</span>: '
-           + '<a href="#{member_url}" target="_blank">#{member_name}</a> '
-           + '#{created_at}'
-           + '</dt>'
-           + '<dd class="#{command}">#{body}</dd>';
-  var contentTemplate = new Template(html);
+    var html = '<dt>'
+             + '<span class="number">#{number}</span>: '
+             + '<a href="#{member_url}" target="_blank">#{member_name}</a> '
+             + '#{created_at}'
+             + '</dt>'
+             + '<dd class="#{command}">#{body}</dd>';
+    this.contentTemplate = new Template(html);
 
-  function checkLastID() {
+    Event.observe(window, 'load', this.onLoad.bind(this));
+  },
+
+  onLoad: function (evt) {
+    this.checkLastID();
+    this.scroll($('chatview'));
+
+    Event.observe('chat_content', 'submit', this.onSubmit.bind(this));
+    Event.observe('restartLink', 'click', this.onRestartLinkClick.bind(this));
+
+    this.timerStart();
+  },
+
+  onSubmit: function (evt) {
+    if ($F('chat_content_body') != '') {
+      this.post(Form.serialize('chat_content', true));
+    }
+    else {
+      this.update();
+    }
+    Event.stop(evt);
+  },
+
+  onRestartLinkClick: function (evt) {
+    this.timerStart();
+    Event.stop(evt);
+  },
+
+  checkLastID: function () {
     var num = $('chatview').getElementsByClassName('number');
     if (num.length == 0) return;
-    lastID = parseInt(num[num.length - 1].innerHTML);
-  }
+    this.lastID = parseInt(num[num.length - 1].innerHTML);
+  },
 
-  function scroll(obj) {
+  scroll: function (obj) {
     // 一番下までスクロール
     obj.scrollTop = 999999;
-  }
+  },
 
-  function chatviewUpdated(response) {
+  chatviewUpdated: function (response) {
     var json = response.responseJSON;
 
     if (!json || json.length == 0) {
@@ -40,120 +69,94 @@
     var html = '';
     json.each(function (content) {
       // 受信済みのIDを二度受信してしまった場合は破棄する
-      if (content.number <= lastID) {
+      if (content.number <= this.lastID) {
         return;
       }
 
-      lastID = content.number;
-      html += contentTemplate.evaluate(content);
-    });
+      this.lastID = content.number;
+      html += this.contentTemplate.evaluate(content);
+    }, this);
+
     $('chatview').innerHTML += html;
 
-    checkLastID();
-    scroll($('chatview'));
-  }
+    this.checkLastID();
+    this.scroll($('chatview'));
+  },
 
-  function update() {
-    new Ajax.Request(url['show'], {
+  update: function () {
+    new Ajax.Request(this.url['show'], {
       method: 'get',
-      parameters: { view: 'chat', last: lastID },
+      parameters: { view: 'chat', last: this.lastID },
       insertion: Insertion.Bottom,
       onSuccess: function (response) {
-        chatviewUpdated(response);
-        startUpdateTimer();
-      },
-      onFailure: timerStop,
-      onException: timerStop,
+        this.chatviewUpdated(response);
+        this.startUpdateTimer();
+      }.bind(this),
+      onFailure: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this),
     });
-  }
+  },
 
-  function startUpdateTimer() {
-    updateTimer = setTimeout(update, updateInterval * 1000);
-  }
+  startUpdateTimer: function () {
+    this.updateTimer = setTimeout(this.update.bind(this), this.updateInterval * 1000);
+  },
 
-  function updateMemberList()
-  {
-    new Ajax.Updater({success: 'memberlist'}, url['show'], {
+  updateMemberList: function () {
+    new Ajax.Updater({success: 'memberlist'}, this.url['show'], {
       method: 'get',
       parameters: { view: 'member' },
-      onSuccess: function () {
-        startUpdateMemberListTimer();
-      },
-      onFailure: timerStop,
-      onException: timerStop,
+      onSuccess: this.startUpdateMemberListTimer.bind(this),
+      onFailure: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this),
     });
-  }
+  },
 
-  function startUpdateMemberListTimer() {
-    updateMemberListTimer = setTimeout(updateMemberList, updateMemberListInterval * 1000);
-  }
+  startUpdateMemberListTimer: function () {
+    this.updateMemberListTimer = setTimeout(this.updateMemberList.bind(this), this.updateMemberListInterval * 1000);
+  },
 
-  function post(param) {
-    param['last'] = lastID;
-    new Ajax.Request(url['post'], {
+  post: function (param) {
+    param['last'] = this.lastID;
+    new Ajax.Request(this.url['post'], {
       method: 'post',
       parameters: param,
       insertion: Insertion.Bottom,
       onSuccess: function (response) {
-        chatviewUpdated(response);
+        this.chatviewUpdated(response);
         $('chat_content_body').setValue('');
-      },
+      }.bind(this),
     });
-  }
+  },
 
-  function heartbeat() {
-    new Ajax.Request(url['heartbeat'], {
+  heartbeat: function () {
+    new Ajax.Request(this.url['heartbeat'], {
       method: 'post',
-      onSuccess: function () {
-        startHeartbeatTimer();
-      },
-      onFailure: timerStop,
-      onException: timerStop,
+      onSuccess: this.startHeartbeatTimer.bind(this),
+      onFailure: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this),
     });
-  }
+  },
 
-  function startHeartbeatTimer() {
-    heartbeatTimer = setTimeout(heartbeat, heartbeatInterval * 1000);
-  }
+  startHeartbeatTimer: function () {
+    this.heartbeatTimer = setTimeout(this.heartbeat.bind(this), this.heartbeatInterval * 1000);
+  },
 
-  function timerStop() {
-    clearTimeout(updateTimer);
-    clearTimeout(updateMemberListTimer);
-    clearTimeout(heartbeatTimer);
+  timerStop: function () {
+    clearTimeout(this.updateTimer);
+    clearTimeout(this.updateMemberListTimer);
+    clearTimeout(this.heartbeatTimer);
 
     $('restart').show();
-    scroll($('chatview'));
-  }
+    this.scroll($('chatview'));
+  },
 
-  function timerStart() {
+  timerStart: function () {
     $('restart').hide();
 
-    startUpdateTimer();
-    startUpdateMemberListTimer();
-    startHeartbeatTimer();
-  }
+    this.startUpdateTimer();
+    this.startUpdateMemberListTimer();
+    this.startHeartbeatTimer();
+  },
+});
 
-  Event.observe(window, 'load', function(evt) {
-    url = url_for_op_chat;
-
-    checkLastID();
-    scroll($('chatview'));
-
-    Event.observe('chat_content', 'submit', function(evt) {
-      if ($F('chat_content_body') != '') {
-        post(Form.serialize('chat_content', true));
-      }
-      else {
-        update();
-      }
-      Event.stop(evt);
-    });
-
-    Event.observe('restartLink', 'click', function(evt) {
-      timerStart();
-      Event.stop(evt);
-    });
-
-    timerStart();
-  });
-}());
+var op_chat = new Chat();

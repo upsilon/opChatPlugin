@@ -1,23 +1,10 @@
-(function(){var updateInterval=5;var updateMemberListInterval=60;var heartbeatInterval=30;var url={};var updateTimer=null;var updateMemberListTimer=null;var heartbeatTimer=null;var lastID=0;var html='<dt>'
+var Chat=Class.create({initialize:function(){this.updateInterval=5;this.updateMemberListInterval=60;this.heartbeatInterval=30;this.url={};this.updateTimer=null;this.updateMemberListTimer=null;this.heartbeatTimer=null;this.lastID=0;var html='<dt>'
 +'<span class="number">#{number}</span>: '
 +'<a href="#{member_url}" target="_blank">#{member_name}</a> '
 +'#{created_at}'
 +'</dt>'
-+'<dd class="#{command}">#{body}</dd>';var contentTemplate=new Template(html);function checkLastID(){var num=$('chatview').getElementsByClassName('number');if(num.length==0)return;lastID=parseInt(num[num.length-1].innerHTML);}
-function scroll(obj){obj.scrollTop=999999;}
-function chatviewUpdated(response){var json=response.responseJSON;if(!json||json.length==0){return;}
-var html='';json.each(function(content){if(content.number<=lastID){return;}
-lastID=content.number;html+=contentTemplate.evaluate(content);});$('chatview').innerHTML+=html;checkLastID();scroll($('chatview'));}
-function update(){new Ajax.Request(url['show'],{method:'get',parameters:{view:'chat',last:lastID},insertion:Insertion.Bottom,onSuccess:function(response){chatviewUpdated(response);startUpdateTimer();},onFailure:timerStop,onException:timerStop,});}
-function startUpdateTimer(){updateTimer=setTimeout(update,updateInterval*1000);}
-function updateMemberList()
-{new Ajax.Updater({success:'memberlist'},url['show'],{method:'get',parameters:{view:'member'},onSuccess:function(){startUpdateMemberListTimer();},onFailure:timerStop,onException:timerStop,});}
-function startUpdateMemberListTimer(){updateMemberListTimer=setTimeout(updateMemberList,updateMemberListInterval*1000);}
-function post(param){param['last']=lastID;new Ajax.Request(url['post'],{method:'post',parameters:param,insertion:Insertion.Bottom,onSuccess:function(response){chatviewUpdated(response);$('chat_content_body').setValue('');},});}
-function heartbeat(){new Ajax.Request(url['heartbeat'],{method:'post',onSuccess:function(){startHeartbeatTimer();},onFailure:timerStop,onException:timerStop,});}
-function startHeartbeatTimer(){heartbeatTimer=setTimeout(heartbeat,heartbeatInterval*1000);}
-function timerStop(){clearTimeout(updateTimer);clearTimeout(updateMemberListTimer);clearTimeout(heartbeatTimer);$('restart').show();scroll($('chatview'));}
-function timerStart(){$('restart').hide();startUpdateTimer();startUpdateMemberListTimer();startHeartbeatTimer();}
-Event.observe(window,'load',function(evt){url=url_for_op_chat;checkLastID();scroll($('chatview'));Event.observe('chat_content','submit',function(evt){if($F('chat_content_body')!=''){post(Form.serialize('chat_content',true));}
-else{update();}
-Event.stop(evt);});Event.observe('restartLink','click',function(evt){timerStart();Event.stop(evt);});timerStart();});}());
++'<dd class="#{command}">#{body}</dd>';this.contentTemplate=new Template(html);Event.observe(window,'load',this.onLoad.bind(this));},onLoad:function(evt){this.checkLastID();this.scroll($('chatview'));Event.observe('chat_content','submit',this.onSubmit.bind(this));Event.observe('restartLink','click',this.onRestartLinkClick.bind(this));this.timerStart();},onSubmit:function(evt){if($F('chat_content_body')!=''){this.post(Form.serialize('chat_content',true));}
+else{this.update();}
+Event.stop(evt);},onRestartLinkClick:function(evt){this.timerStart();Event.stop(evt);},checkLastID:function(){var num=$('chatview').getElementsByClassName('number');if(num.length==0)return;this.lastID=parseInt(num[num.length-1].innerHTML);},scroll:function(obj){obj.scrollTop=999999;},chatviewUpdated:function(response){var json=response.responseJSON;if(!json||json.length==0){return;}
+var html='';json.each(function(content){if(content.number<=this.lastID){return;}
+this.lastID=content.number;html+=this.contentTemplate.evaluate(content);},this);$('chatview').innerHTML+=html;this.checkLastID();this.scroll($('chatview'));},update:function(){new Ajax.Request(this.url['show'],{method:'get',parameters:{view:'chat',last:this.lastID},insertion:Insertion.Bottom,onSuccess:function(response){this.chatviewUpdated(response);this.startUpdateTimer();}.bind(this),onFailure:this.timerStop.bind(this),onException:this.timerStop.bind(this),});},startUpdateTimer:function(){this.updateTimer=setTimeout(this.update.bind(this),this.updateInterval*1000);},updateMemberList:function(){new Ajax.Updater({success:'memberlist'},this.url['show'],{method:'get',parameters:{view:'member'},onSuccess:this.startUpdateMemberListTimer.bind(this),onFailure:this.timerStop.bind(this),onException:this.timerStop.bind(this),});},startUpdateMemberListTimer:function(){this.updateMemberListTimer=setTimeout(this.updateMemberList.bind(this),this.updateMemberListInterval*1000);},post:function(param){param['last']=this.lastID;new Ajax.Request(this.url['post'],{method:'post',parameters:param,insertion:Insertion.Bottom,onSuccess:function(response){this.chatviewUpdated(response);$('chat_content_body').setValue('');}.bind(this),});},heartbeat:function(){new Ajax.Request(this.url['heartbeat'],{method:'post',onSuccess:this.startHeartbeatTimer.bind(this),onFailure:this.timerStop.bind(this),onException:this.timerStop.bind(this),});},startHeartbeatTimer:function(){this.heartbeatTimer=setTimeout(this.heartbeat.bind(this),this.heartbeatInterval*1000);},timerStop:function(){clearTimeout(this.updateTimer);clearTimeout(this.updateMemberListTimer);clearTimeout(this.heartbeatTimer);$('restart').show();this.scroll($('chatview'));},timerStart:function(){$('restart').hide();this.startUpdateTimer();this.startUpdateMemberListTimer();this.startHeartbeatTimer();},});var op_chat=new Chat();
