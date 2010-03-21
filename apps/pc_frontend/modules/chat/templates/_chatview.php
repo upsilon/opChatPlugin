@@ -5,6 +5,6 @@
 <?php echo $chat->created_at ?>
 </dt>
 <dd class="<?php echo $chat->command ?>">
-<?php echo $chat->body ?>
+<?php echo op_auto_link_text($chat->body) ?>
 </dd>
 <?php endforeach; ?>

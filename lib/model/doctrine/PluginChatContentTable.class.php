@@ -23,7 +23,9 @@ class PluginChatContentTable extends Doctrine_Table
 
   public function getListJson($controller, $contents)
   {
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Helper', 'Tag', 'Escaping', 'opUtil'));
     $result = array();
+
     foreach ($contents as $content)
     {
       $data = array(
@@ -36,9 +38,9 @@ class PluginChatContentTable extends Doctrine_Table
       );
       foreach ($data as &$d)
       {
-        sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
         $d = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $d);
       }
+      $data['body'] = op_auto_link_text($data['body']);
       $result[] = $data;
     }
 
