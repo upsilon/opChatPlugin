@@ -26,7 +26,7 @@ class PluginChatContentTable extends Doctrine_Table
     $result = array();
     foreach ($contents as $content)
     {
-      $result[] = array(
+      $data = array(
         'number'      => $content->number,
         'member_url'  => $controller->genUrl('@obj_member_profile?id='.$content->member_id),
         'member_name' => $content->Member->name,
@@ -34,6 +34,12 @@ class PluginChatContentTable extends Doctrine_Table
         'body'        => $content->body,
         'created_at'  => $content->created_at,
       );
+      foreach ($data as &$d)
+      {
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Escaping');
+        $d = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $d);
+      }
+      $result[] = $data;
     }
 
     return json_encode($result);
