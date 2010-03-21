@@ -68,6 +68,8 @@ var Chat = Class.create({
 
     var html = '';
     json.each(function (content) {
+      content.number = parseInt(content.number);
+
       // 受信済みのIDを二度受信してしまった場合は破棄する
       if (content.number <= this.lastID) {
         return;
