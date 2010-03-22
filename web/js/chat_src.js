@@ -111,6 +111,10 @@ var Chat = Class.create({
     this.updateTimer = setTimeout(this.update.bind(this), this.config['updateInterval'] * 1000);
   },
 
+  stopUpdateTimer: function () {
+    clearTimeout(this.updateTimer);
+  },
+
   updateMemberList: function () {
     new Ajax.Updater({success: 'memberlist'}, this.config.url['show'], {
       method: 'get',
@@ -126,6 +130,7 @@ var Chat = Class.create({
   },
 
   post: function (param) {
+    this.stopUpdateTimer();
     param['last'] = this.lastID;
     new Ajax.Request(this.config.url['post'], {
       method: 'post',
@@ -133,6 +138,9 @@ var Chat = Class.create({
       insertion: Insertion.Bottom,
       onSuccess: function (response) {
         this.chatviewUpdated(response);
+      }.bind(this),
+      onComplete: function (response) {
+        this.startUpdateTimer();
       }.bind(this)
     });
   },
