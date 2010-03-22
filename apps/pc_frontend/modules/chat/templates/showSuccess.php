@@ -43,10 +43,10 @@
 )) ?>
 
 <?php echo javascript_tag('
-op_chat.url = {
+var op_chat = new Chat({url: {
   post: "'.url_for('@chatroom_post?id='.$room->id).'",
   show: "'.url_for('@chatroom_show?id='.$room->id).'",
   heartbeat: "'.url_for('@chatroom_heartbeat?id='.$room->id).'"
-};
+}});
 ') ?>
 
