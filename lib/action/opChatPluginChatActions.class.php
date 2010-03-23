@@ -190,6 +190,11 @@ class opChatPluginChatActions extends sfActions
     $room->setIsClosed(true);
     $room->save();
 
+    if ($cache = $this->getContext()->getViewCacheManager())
+    {
+      $cache->remove('chat/index');
+    }
+
     $this->getUser()->setFlash('notice', $room->getTitle().' を終了しました');
     $this->redirect('@chatroom_list');
   }
