@@ -94,7 +94,7 @@ var Chat = Class.create({
         this.startUpdateTimer();
       }.bind(this),
       onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this)
     });
   },
 
@@ -108,7 +108,7 @@ var Chat = Class.create({
       parameters: { view: 'member' },
       onSuccess: this.startUpdateMemberListTimer.bind(this),
       onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this)
     });
   },
 
@@ -124,7 +124,7 @@ var Chat = Class.create({
       insertion: Insertion.Bottom,
       onSuccess: function (response) {
         this.chatviewUpdated(response);
-      }.bind(this),
+      }.bind(this)
     });
   },
 
@@ -133,7 +133,7 @@ var Chat = Class.create({
       method: 'post',
       onSuccess: this.startHeartbeatTimer.bind(this),
       onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this),
+      onException: this.timerStop.bind(this)
     });
   },
 
@@ -156,7 +156,7 @@ var Chat = Class.create({
     this.startUpdateTimer();
     this.startUpdateMemberListTimer();
     this.startHeartbeatTimer();
-  },
+  }
 });
 
 var op_chat = new Chat();
