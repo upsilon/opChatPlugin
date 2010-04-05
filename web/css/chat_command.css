@@ -1,52 +1,52 @@
-dd.red {
+dl#chatview dd.red {
   color: red;
 }
 
-dd.blue {
+dl#chatview dd.blue {
   color: blue;
 }
 
-dd.green {
+dl#chatview dd.green {
   color: green;
 }
 
-dd.white {
+dl#chatview dd.white {
   color: white;
 }
 
-dd.micro {
+dl#chatview dd.micro {
   font-size: 50%;
 }
 
-dd.small {
+dl#chatview dd.small {
   font-size: 75%;
 }
 
-dd.big {
+dl#chatview dd.big {
   font-size: 125%;
 }
 
-dd.mega {
+dl#chatview dd.mega {
   font-size: 150%;
 }
 
-dd.giga {
+dl#chatview dd.giga {
   font-size: 175%;
 }
 
-dd.tera {
+dl#chatview dd.tera {
   font-size: 200%;
 }
 
-dd.bold {
+dl#chatview dd.bold {
   font-weight: bold;
 }
 
-dd.italic {
+dl#chatview dd.italic {
   font-style: italic;
 }
 
-dd.message {
+dl#chatview dd.message {
   color: maroon;
 }
 
