@@ -8,7 +8,7 @@
 <?php endif; ?>
 <?php echo link_to('[ログアウト]', '@chatroom_logout?id='.$room->id) ?>
 </div>
-<div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id); ?></div>
+<div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id, array('popup' => true)) ?></div>
 
 <table id="chat"><tr>
 <td>
