@@ -136,6 +136,11 @@ class opChatPluginChatActions extends sfActions
     $this->form = new ChatRoomForm($room);
     if ($this->form->bindAndSave($request->getParameter('chat_room')))
     {
+      if ($cache = $this->getContext()->getViewCacheManager())
+      {
+        $cache->remove('chat/index');
+      }
+
       if (is_null($room->open_date))
       {
         $this->redirect('@chatroom_login?id='.$room->id);
