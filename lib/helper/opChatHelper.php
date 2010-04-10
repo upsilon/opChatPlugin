@@ -17,7 +17,9 @@ function op_chat_room_link($room, $member_id)
 
   if ($room->isOpened())
   {
-    $html .= link_to($title, $linkto);
+    $html .= link_to($title, $linkto, array(
+      'title' => '最終投稿日時: '.op_format_date($room->getLastPostDate(), 'f'),
+    ));
   }
   else
   {

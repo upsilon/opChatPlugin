@@ -55,6 +55,14 @@ class PluginChatContentTable extends Doctrine_Table
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 
+  public function getLastPostDate($room)
+  {
+    return $this->createQuery()
+      ->select('MAX(created_at)')
+      ->where('chat_room_id = ?', $room->id)
+      ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
+  }
+
   public function getCount($room)
   {
     return $this->createQuery()

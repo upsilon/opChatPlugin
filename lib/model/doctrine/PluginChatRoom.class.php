@@ -34,6 +34,11 @@ abstract class PluginChatRoom extends BaseChatRoom
     return Doctrine::getTable('ChatContent')->getCount($this);
   }
 
+  public function getLastPostDate()
+  {
+    return Doctrine::getTable('ChatContent')->getLastPostDate($this);
+  }
+
   public function login($member)
   {
     Doctrine::getTable('ChatRoomMember')->login($member->id, $this);
