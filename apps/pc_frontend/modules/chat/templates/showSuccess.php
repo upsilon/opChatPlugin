@@ -29,8 +29,12 @@
 <form id="chat_content" method="post" action="<?php echo url_for('@chatroom_post?id='.$room->id) ?>">
 <?php echo $form->renderHiddenFields() ?>
 <div>
-<?php echo $form['command']->renderLabel().': '.$form['command'] ?><br />
-<?php echo $form['body']->render(array('autocomplete' => 'off')) ?>
+<?php
+$form->getWidget('body')->setAttribute('rows', 3);
+$form->getWidget('body')->setAttribute('cols', 50);
+
+echo $form['body']
+?>
 <input type="submit" id="submit" value="送信" />
 </div>
 </form>

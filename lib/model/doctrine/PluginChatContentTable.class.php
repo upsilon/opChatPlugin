@@ -40,7 +40,7 @@ class PluginChatContentTable extends Doctrine_Table
       {
         $d = sfOutputEscaper::escape(sfConfig::get('sf_escaping_method'), $d);
       }
-      $data['body'] = op_auto_link_text($data['body']);
+      $data['body'] = op_auto_link_text(op_decoration(nl2br($data['body'])));
       $result[] = $data;
     }
 

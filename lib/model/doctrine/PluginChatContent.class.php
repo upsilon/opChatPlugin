@@ -9,9 +9,6 @@
  */
 abstract class PluginChatContent extends BaseChatContent
 {
-  protected $allowCommand = array('red', 'blue', 'green', 'white', 'bold',
-    'italic', 'tera', 'giga', 'mega', 'big', 'small', 'micro');
-
   public function preSave($event)
   {
     if (!$this->number)
@@ -19,25 +16,9 @@ abstract class PluginChatContent extends BaseChatContent
       $this->number = $this->getTable()->getLastNumber($this->ChatRoom) + 1;
     }
 
-    $command = $this->command;
-    $command = preg_split('/[\s　]+/u', $command, -1, PREG_SPLIT_NO_EMPTY);
-
-    $newCommand = ''; 
-    foreach ($command as $entry)
-    {
-      if (in_array($entry, $this->allowCommand))
-      {
-        $newCommand .= $entry.' ';
-      } 
-    }
-
-    $this->command = $newCommand;
-
     if ($this->level > 5)
     {
-      $this->command .= ' message';
+      $this->command = 'message';
     }
-
-    $this->command = trim($this->command);
   }
 }
