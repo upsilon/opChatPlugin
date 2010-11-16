@@ -1,12 +1,23 @@
 <?php
 
 /**
- * PluginChatContentTable
- * 
- * @package    opChatPlugin
- * @subpackage ChatContent
- * @author     Youichi Kimura <kim.upsilon@gmail.com>
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatContentTable
+ *
+ * @package     opChatPlugin
+ * @subpackage  model
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ * @author      Shogo Kawahara <kawahara@bucyou.net>
+ */
+
 class PluginChatContentTable extends Doctrine_Table
 {
   public function getList($room, $last = 0, $count = 20)

@@ -1,13 +1,22 @@
 <?php
 
 /**
- * PluginChatRoomMember form.
+ * opChatPlugin
  *
- * @package    ##PROJECT_NAME##
- * @subpackage filter
- * @author     ##AUTHOR_NAME##
- * @version    SVN: $Id: sfDoctrineFormFilterPluginTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatRoomMember form filter.
+ *
+ * @package     opChatPlugin
+ * @subpackage  filter
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 abstract class PluginChatRoomMemberFormFilter extends BaseChatRoomMemberFormFilter
 {
 }

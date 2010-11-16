@@ -1,3 +1,20 @@
+/**
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
+ */
+
+/**
+ * chat.js
+ *
+ * @package     opChatPlugin
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ * @author      Shogo Kawahara <kawahara@bucyou.net>
+ */
+
 var Chat = Class.create({
 
   config: {

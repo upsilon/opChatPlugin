@@ -1,12 +1,22 @@
 <?php
 
 /**
- * PluginChatContent
- * 
- * @package    opChatPlugin
- * @subpackage ChatContent
- * @author     Youichi Kimura <kim.upsilon@gmail.com>
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatContent
+ *
+ * @package     opChatPlugin
+ * @subpackage  model
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 abstract class PluginChatContent extends BaseChatContent
 {
   public function preSave($event)

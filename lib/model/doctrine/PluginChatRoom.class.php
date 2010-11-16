@@ -1,12 +1,22 @@
 <?php
 
 /**
- * PluginChatRoom
- * 
- * @package    opChatPlugin
- * @subpackage ChatRoom
- * @author     Youichi Kimura <kim.upsilon@gmail.com>
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatRoom
+ *
+ * @package     opChatPlugin
+ * @subpackage  model
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 abstract class PluginChatRoom extends BaseChatRoom
 {
   public function isOpened()

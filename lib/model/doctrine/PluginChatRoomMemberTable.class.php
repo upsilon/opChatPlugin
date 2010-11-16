@@ -1,6 +1,22 @@
 <?php
+
 /**
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatRoomMemberTable
+ *
+ * @package     opChatPlugin
+ * @subpackage  model
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 class PluginChatRoomMemberTable extends Doctrine_Table
 {
   public function findOne($member_id, $room)

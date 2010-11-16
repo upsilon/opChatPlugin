@@ -1,13 +1,22 @@
 <?php
 
 /**
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
+ */
+
+/**
  * PluginChatRoomMember form.
  *
- * @package    ##PROJECT_NAME##
- * @subpackage form
- * @author     ##AUTHOR_NAME##
- * @version    SVN: $Id: sfDoctrineFormPluginTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @package     opChatPlugin
+ * @subpackage  form
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
  */
+
 abstract class PluginChatRoomMemberForm extends BaseChatRoomMemberForm
 {
 }

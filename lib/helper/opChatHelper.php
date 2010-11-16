@@ -1,5 +1,22 @@
 <?php
 
+/**
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
+ */
+
+/**
+ * opChatHelper
+ *
+ * @package     opChatPlugin
+ * @subpackage  helper
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 function op_chat_room_link($room, $member_id)
 {
   $html = '';

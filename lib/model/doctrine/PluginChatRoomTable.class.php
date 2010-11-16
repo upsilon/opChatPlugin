@@ -1,12 +1,22 @@
 <?php
 
 /**
- * PluginChatRoomTable
- * 
- * @package    opChatPlugin
- * @subpackage ChatContent
- * @author     Youichi Kimura <kim.upsilon@gmail.com>
+ * opChatPlugin
+ *
+ * This source file is subject to the Apache License version 2.0
+ * that is bundled with this package in the file LICENSE.
+ *
+ * @license     Apache License 2.0
  */
+
+/**
+ * PluginChatRoomTable
+ *
+ * @package     opChatPlugin
+ * @subpackage  model
+ * @author      Kimura Youichi <kim.upsilon@gmail.com>
+ */
+
 class PluginChatRoomTable extends Doctrine_Table
 {
   public function getListPager($page = 1, $size = 20)
