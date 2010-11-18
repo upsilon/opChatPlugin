@@ -1,4 +1,4 @@
-#chat, #chat tr td {
+#chat {
   border-width: 0px;
   border-style: none;
 }
@@ -13,12 +13,17 @@
   overflow-y: scroll;
 }
 
-#chatview dd {
+#chat #chatview dd {
   margin-left: 5px;
   margin-bottom: 5px;
 }
 
-#restart , #restart a:link {
+#chat #memberlist {
+  float: right;
+  width: 150px;
+}
+
+#restart, #restart a:link {
   color: red;
 }
 
@@ -26,11 +31,34 @@
   color: #ff6666;
 }
 
-input#chat_content_body {
-  width: 70%
+#chat_content {
+  margin: 10px 15px;
+  text-align: right;
 }
 
-input#submit {
-  width: 5em;
+#chat_input {
+  text-align: inherit;
+}
+
+#chat_input input, #chat_input label {
+  display: block;
+  float: left;
+}
+
+#chat_input br {
+  display: none;
+}
+
+#chat_input #chat_content_body_buttonmenu {
+  display: inline;
+}
+
+#chat_input #chat_content_body {
+  width: 100%;
+}
+
+#chat_content input.input_submit {
+  padding: 3px 15px;
+  margin: 2px;
 }
 

@@ -11,32 +11,27 @@
 </div>
 <div>作成者: <?php echo link_to($room->getMember()->name, '@obj_member_profile?id='.$room->member_id, array('popup' => true)) ?></div>
 
-<table id="chat"><tr>
-<td>
-<dl id="chatview">
-<?php include_partial('chatview', array('chatlist' => $chatlist)) ?>
-</dl>
-</td>
-<td style="width: 150px">
+<div id="chat">
 <dl id="memberlist">
 <?php include_partial('memberlist', array('memberlist' => $memberlist)) ?>
 </dl>
-</td>
-</tr></table>
+<dl id="chatview">
+<?php include_partial('chatview', array('chatlist' => $chatlist)) ?>
+</dl>
+</div>
 
 <?php if (isset($form)): ?>
 
 <form id="chat_content" method="post" action="<?php echo url_for('@chatroom_post?id='.$room->id) ?>">
 <?php echo $form->renderHiddenFields() ?>
-<div>
-<?php
-$form->getWidget('body')->setAttribute('rows', 3);
-$form->getWidget('body')->setAttribute('cols', 50);
 
-echo $form['body']
-?>
-<input type="submit" id="submit" value="送信" />
+<div id="chat_input">
+<?php echo $form['body'] ?>
 </div>
+
+<span class="submit">
+<input type="submit" class="input_submit" value="送信" />
+</span>
 </form>
 
 <?php endif; ?>
