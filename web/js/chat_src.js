@@ -180,9 +180,11 @@ var Chat = Class.create({
     clearTimeout(this.updateMemberListTimer);
     clearTimeout(this.heartbeatTimer);
 
-    $('chatview').innerHTML += this.restartLink;
-    Event.observe('restartLink', 'click', this.onRestartLinkClick.bind(this));
-    this.scroll($('chatview'));
+    if (!$('restartLink')) {
+      $('chatview').innerHTML += this.restartLink;
+      Event.observe('restartLink', 'click', this.onRestartLinkClick.bind(this));
+      this.scroll($('chatview'));
+    }
   },
 
   timerStart: function () {
