@@ -60,4 +60,14 @@ abstract class PluginChatRoom extends BaseChatRoom
     Doctrine::getTable('ChatRoomMember')->logout($member->id, $this);
     Doctrine::getTable('ChatContent')->logout($member, $this);
   }
+
+  public function postInsert($event)
+  {
+    $msg = new ChatContent();
+    $msg->ChatRoom = $this;
+    $msg->member_id = $this->member_id;
+    $msg->level = 8;
+    $msg->body = $this->Member->name.' さんがチャットルームを作成しました';
+    $msg->save();
+  }
 }
