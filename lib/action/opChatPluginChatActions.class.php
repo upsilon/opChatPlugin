@@ -136,11 +136,6 @@ class opChatPluginChatActions extends sfActions
     $this->form = new ChatRoomForm($room);
     if ($this->form->bindAndSave($request->getParameter('chat_room')))
     {
-      if ($cache = $this->getContext()->getViewCacheManager())
-      {
-        $cache->remove('chat/index');
-      }
-
       if (is_null($room->open_date))
       {
         $this->redirect('@chatroom_login?id='.$room->id);
@@ -194,11 +189,6 @@ class opChatPluginChatActions extends sfActions
     $room = $this->getRoute()->getObject();
     $room->setIsClosed(true);
     $room->save();
-
-    if ($cache = $this->getContext()->getViewCacheManager())
-    {
-      $cache->remove('chat/index');
-    }
 
     $this->getUser()->setFlash('notice', $room->getTitle().' を終了しました');
     $this->redirect('@chatroom_list');
