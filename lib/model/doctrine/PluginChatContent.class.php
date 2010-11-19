@@ -30,5 +30,13 @@ abstract class PluginChatContent extends BaseChatContent
     {
       $this->command = 'message';
     }
+
+    $event = sfContext::getInstance()->getEventDispatcher()
+      ->filter(new sfEvent(null, 'op_chat.filter_message'), $this);
+
+    if (empty($this->body))
+    {
+      $event->skipOperation();
+    }
   }
 }
