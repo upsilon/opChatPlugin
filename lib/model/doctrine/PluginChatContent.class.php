@@ -23,7 +23,7 @@ abstract class PluginChatContent extends BaseChatContent
   {
     if (!$this->number)
     {
-      $this->number = $this->getTable()->getLastNumber($this->ChatRoom) + 1;
+      $this->number = $this->getTable()->getLastNumber($this->chat_room_id) + 1;
     }
 
     if ($this->level > 5)

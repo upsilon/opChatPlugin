@@ -36,38 +36,40 @@ abstract class PluginChatRoom extends BaseChatRoom
 
   public function isActive($member_id)
   {
-    return Doctrine::getTable('ChatRoomMember')->isActive($member_id, $this);
+    return Doctrine::getTable('ChatRoomMember')->isActive($this->id, $member_id);
   }
 
   public function countChatContent()
   {
-    return Doctrine::getTable('ChatContent')->getCount($this);
+    return Doctrine::getTable('ChatContent')->getCount($this->id);
   }
 
   public function getLastPostDate()
   {
-    return Doctrine::getTable('ChatContent')->getLastPostDate($this);
+    return Doctrine::getTable('ChatContent')->getLastPostDate($this->id);
+  }
+
+  public function post($member_id, $body, $options = array())
+  {
+    Doctrine::getTable('ChatContent')->post($this->id, $member_id, $body, $options);
   }
 
   public function login($member)
   {
-    Doctrine::getTable('ChatRoomMember')->login($member->id, $this);
-    Doctrine::getTable('ChatContent')->login($member, $this);
+    Doctrine::getTable('ChatRoomMember')->login($this->id, $member->id);
+    Doctrine::getTable('ChatContent')->login($this->id, $member);
   }
 
   public function logout($member)
   {
-    Doctrine::getTable('ChatRoomMember')->logout($member->id, $this);
-    Doctrine::getTable('ChatContent')->logout($member, $this);
+    Doctrine::getTable('ChatRoomMember')->logout($this->id, $member->id);
+    Doctrine::getTable('ChatContent')->logout($this->id, $member);
   }
 
   public function postInsert($event)
   {
-    $msg = new ChatContent();
-    $msg->ChatRoom = $this;
-    $msg->member_id = $this->member_id;
-    $msg->level = 8;
-    $msg->body = $this->Member->name.' さんがチャットルームを作成しました';
-    $msg->save();
+    $member = $this->Member;
+    $this->post($member->id, $member->name.' さんがチャットルームを作成しました',
+      array('level' => 8));
   }
 }

@@ -69,7 +69,7 @@ class opChatPluginChatActions extends sfActions
 
     $last = $request->getParameter('last', 0);
 
-    $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room);
+    $this->memberlist = Doctrine::getTable('ChatRoomMember')->getMembers($room->id);
 
     if ($request->isXmlHttpRequest())
     {
@@ -77,7 +77,7 @@ class opChatPluginChatActions extends sfActions
       {
         case 'chat':
           $table = Doctrine::getTable('ChatContent');
-          $chat = $table->getList($room, $last);
+          $chat = $table->getList($room->id, $last);
           $json = $table->getListJson($this->getController(), $chat);
           return $this->renderJson($json);
         case 'member':
@@ -87,7 +87,7 @@ class opChatPluginChatActions extends sfActions
       }
     }
 
-    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room, $last);
+    $this->chatlist = Doctrine::getTable('ChatContent')->getList($room->id, $last);
 
     $chat = new ChatContent();
     $chat->ChatRoom = $room;
@@ -129,7 +129,7 @@ class opChatPluginChatActions extends sfActions
 
     $this->forward404Unless($room->isWritable() && $room->isActive($member_id));
 
-    Doctrine::getTable('ChatRoomMember')->update($member_id, $room);
+    Doctrine::getTable('ChatRoomMember')->update($room->id, $member_id);
 
     if ($request->isXmlHttpRequest())
     {
@@ -218,7 +218,7 @@ class opChatPluginChatActions extends sfActions
     $this->forward404Unless($room->isOpened());
 
     $this->room = $room;
-    $this->pager = Doctrine::getTable('ChatContent')->getListPager($room, $request->getParameter('page'));
+    $this->pager = Doctrine::getTable('ChatContent')->getListPager($room->id, $request->getParameter('page'));
   }
 
   protected function renderJson($json)

@@ -20,10 +20,10 @@
 
 class PluginChatContentTable extends Doctrine_Table
 {
-  public function getList($room, $last = 0, $count = 20)
+  public function getList($room_id, $last = 0, $count = 20)
   {
     $query = $this->createQuery()
-      ->where('chat_room_id = ?', $room->id)
+      ->where('chat_room_id = ?', $room_id)
       ->andWhere('level >= 5')
       ->andWhere('number > ?', $last)
       ->orderBy('number DESC')
@@ -58,53 +58,65 @@ class PluginChatContentTable extends Doctrine_Table
     return json_encode($result);
   }
 
-  public function getLastNumber($room)
+  public function getLastNumber($room_id)
   {
     return $this->createQuery()
       ->select('MAX(number)')
-      ->where('chat_room_id = ?', $room->id)
+      ->where('chat_room_id = ?', $room_id)
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 
-  public function getLastPostDate($room)
+  public function getLastPostDate($room_id)
   {
     return $this->createQuery()
       ->select('MAX(created_at)')
-      ->where('chat_room_id = ?', $room->id)
+      ->where('chat_room_id = ?', $room_id)
       ->execute(array(), Doctrine::HYDRATE_SINGLE_SCALAR);
   }
 
-  public function getCount($room)
+  public function getCount($room_id)
   {
     return $this->createQuery()
-      ->where('chat_room_id = ?', $room->id)
+      ->where('chat_room_id = ?', $room_id)
       ->count();
   }
 
-  public function login($member, $room)
+  public function post($room_id, $member_id, $body, $options = array())
   {
-    $obj = new ChatContent();
-    $obj->ChatRoom = $room;
-    $obj->Member = $member;
-    $obj->level = 9;
-    $obj->body = $member->name.' さんがログインしました';
-    $obj->save();
+    $post = new ChatContent();
+    $post->chat_room_id = $room_id;
+    $post->member_id = $member_id;
+    $post->body = $body;
+
+    if (isset($options['level']))
+    {
+      $post->level = $options['level'];
+    }
+
+    if (isset($options['command']))
+    {
+      $post->command = $options['command'];
+    }
+
+    $post->save();
   }
 
-  public function logout($member, $room)
+  public function login($room_id, $member)
   {
-    $obj = new ChatContent();
-    $obj->ChatRoom = $room;
-    $obj->Member = $member;
-    $obj->level = 10;
-    $obj->body = $member->name.' さんがログアウトしました';
-    $obj->save();
+    $this->post($room_id, $member->id, $member->name.' さんがログインしました',
+      array('level' => 9));
   }
 
-  public function getListPager($room, $page = 1, $size = 20)
+  public function logout($room_id, $member)
+  {
+    $this->post($room_id, $member->id, $member->name.' さんがログアウトしました',
+      array('level' => 10));
+  }
+
+  public function getListPager($room_id, $page = 1, $size = 20)
   {
     $query = $this->createQuery()
-      ->where('chat_room_id = ?', $room->id)
+      ->where('chat_room_id = ?', $room_id)
       ->andWhere('level >= 5')
       ->orderBy('number');
 
