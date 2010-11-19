@@ -13,53 +13,31 @@
   <email />
   <active>yes</active>
  </lead>
- <date>2010-05-29</date>
- <time>00:34:31</time>
+ <date>2010-11-20</date>
+ <time>01:58:52</time>
  <version>
-  <release>1.0.0</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license>Affero GPLv3</license>
- <notes> * fixed a fixture of navigation (fixes #816) [Shogo Kawahara]
- * fixed chat.js for Ajax (fixes #817) [Shogo Kawahara]
- * fixed chat.js for refactoring [Shogo Kawahara]
- * チャットルームがオープン中でも過去ログが閲覧できるよう修正 (fixes #818) [upsilon]
- * チャットの受信が完了してから次のタイマーを開始するように修正 (fixes #829) [upsilon]
- * ChatRoomMemberTable, ChatRoomなどの引数をMemberオブジェクトからメンバーIDに統一 [upsilon]
- * チャットルーム閉鎖後も「編集」リンクが表示されてしまうのを修正 [upsilon]
- * JSON形式での通信に対応 (fixes #825) [upsilon]
- * プロフィールへのリンクを別窓表示に [upsilon]
- * 通信エラーが起きた場合にタイマーを停止する [upsilon]
- * メソッド名修正: responseJson -> renderJson [upsilon]
- * chat.jsをオブジェクト指向風に修正 [upsilon]
- * Chat.checkLastID()を一度だけ呼び出すように修正 [upsilon]
- * チャットルームが１つも無い場合にメッセージを表示する [upsilon]
- * チャットのレス番が桁上がりするときに更新が止まってしまう問題を修正 [upsilon]
- * 連投防止改善 (fixes #819) [Shogo Kawahara]
- * メンバーリストのリンクでポップアップするようにする [Shogo Kawahara]
- * JSON内容をエスケープするように変更 [Shogo Kawahara]
- * 本文の自動リンク [Shogo Kawahara]
- * チャットルーム一覧を最終書込日時の降順にする [upsilon]
- * チャットルーム一覧のキャッシュを有効に [upsilon]
- * IEではchat.jsがエラーになってしまう問題を回避 [upsilon]
- * コマンドのCSSをdl#chatviewにのみ適用 [upsilon]
- * チャットルーム作成者のページを別窓で開く [upsilon]
- * 「再接続する」リンクを常に最下部で表示するようにした [upsilon]
- * チャットルームへのリンクのtitle属性に最終投稿日時を追加 [upsilon]
- * チャットルーム作成時にchat/indexのキャッシュを削除 [upsilon]
- * 設定をコンストラクタで行えるように変更 [Shogo Kawahara]
- * 投稿で更新タイマーをリセットするようにする [Shogo Kawahara]
- * 過去ログへのリンクをチャットページに表示 [upsilon]
+ <license>Apache</license>
+ <notes>
+* don't create duplicate restartLink's [upsilon]
+* dispatch op_chat.filter_message event for filtering chat message [upsilon]
+* cleanup message posting codes [upsilon]
+* do post message when creating new chatroom [upsilon]
+* modify layout of chat/show [upsilon]
+* change the license to Apache License 2.0 [upsilon]
+* Revert "チャットルーム一覧のキャッシュを有効に" [upsilon]
+* add support for &lt;op:*&gt; tags [upsilon]
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <file baseinstalldir="/" md5sum="77705a8cacadb4040f54e21ae9254b62" name="apps/pc_frontend/config/routing.yml" role="data" />
    <file baseinstalldir="/" md5sum="cd4aa6824201ec72807732eae41672cc" name="apps/pc_frontend/modules/chat/actions/actions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="139c35f46979150a00b9e7029f907e58" name="apps/pc_frontend/modules/chat/config/cache.yml" role="data" />
    <file baseinstalldir="/" md5sum="9cbbf2a71ebac31c5e9df7c44c2e0dec" name="apps/pc_frontend/modules/chat/config/security.yml" role="data" />
    <file baseinstalldir="/" md5sum="0d8e358cc1d087f05672fa90c9a634ca" name="apps/pc_frontend/modules/chat/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="b3028c7ea7d42b861446cd739c8403b0" name="apps/pc_frontend/modules/chat/templates/closeConfirmSuccess.php" role="data" />
@@ -68,27 +46,27 @@
    <file baseinstalldir="/" md5sum="99d0e4582bfd53129f8a2c4635f20f8d" name="apps/pc_frontend/modules/chat/templates/logSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="2dfea6aed18a7ac5586320fb069de663" name="apps/pc_frontend/modules/chat/templates/newSuccess.php" role="data" />
    <file baseinstalldir="/" md5sum="5ace54fd43b0e54185540bd7c4df3068" name="apps/pc_frontend/modules/chat/templates/roomSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="f2196923772b2779d3db411371bdc64d" name="apps/pc_frontend/modules/chat/templates/showSuccess.php" role="data" />
-   <file baseinstalldir="/" md5sum="926149d69eaf1633dc8f4be038bddb90" name="apps/pc_frontend/modules/chat/templates/_chatview.php" role="data" />
+   <file baseinstalldir="/" md5sum="dd6fc7a576574e49f95fac92fa0d801f" name="apps/pc_frontend/modules/chat/templates/showSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="d3f66074ea2ea8df31e1fa27a258e53b" name="apps/pc_frontend/modules/chat/templates/_chatview.php" role="data" />
    <file baseinstalldir="/" md5sum="9e960450b73c6e191985995e1c9e35d9" name="apps/pc_frontend/modules/chat/templates/_memberlist.php" role="data" />
    <file baseinstalldir="/" md5sum="ff89edb50dcd7cbf6f064f69968697c0" name="config/doctrine/schema.yml" role="data" />
    <file baseinstalldir="/" md5sum="068037bcefebb8352663566cb59b3153" name="data/fixtures/001_navigation.yml" role="data" />
-   <file baseinstalldir="/" md5sum="70df61cfb107fcc2fca816d7564a64bb" name="lib/action/opChatPluginChatActions.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="2355924f4064b101fdb4cc1ea4e46f26" name="lib/filter/doctrine/PluginChatContentFormFilter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="54e2ba982382b1e9aa7b9373a90373c2" name="lib/filter/doctrine/PluginChatRoomFormFilter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d9057e31d9caf6b382c936d22ff1a8db" name="lib/filter/doctrine/PluginChatRoomMemberFormFilter.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="ae96dc0a3c20a5f179dd78952c406a11" name="lib/form/doctrine/PluginChatContentForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="f999962d851b1b5befed0a41a5e7be50" name="lib/form/doctrine/PluginChatRoomForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="795005aaba547a24322ab09dc391c831" name="lib/form/doctrine/PluginChatRoomMemberForm.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="cab68e03cfbf29669c98562530e05db0" name="lib/helper/opChatHelper.php" role="data" />
-   <file baseinstalldir="/" md5sum="574a4b0935b9fa9ff2461a26b22b0a4d" name="lib/model/doctrine/PluginChatContent.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="0e1e54049a312ba1402f04cbf81cccfe" name="lib/model/doctrine/PluginChatContentTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="64f180e835a020e8721ecbfd4d76d607" name="lib/model/doctrine/PluginChatRoom.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="3401ca14587dd6aa7dce31e03941e389" name="lib/model/doctrine/PluginChatRoomMember.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="d213f688abdbd5d598504ea075051dc9" name="lib/model/doctrine/PluginChatRoomMemberTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="653f5b0535cd37ac6657fea035124072" name="lib/model/doctrine/PluginChatRoomTable.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="73b09b945eec8ae2a6b0d97f3e6a4c85" name="lib/routing/opChatPluginFrontendCollection.class.php" role="data" />
-   <file baseinstalldir="/" md5sum="dad7a06cfb5b7128805b5e69f86a5a45" name="lib/widget/opWidgetFormDateTime.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="6999535a0aa390fac8209e6fccd4e9d2" name="lib/action/opChatPluginChatActions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="12a380ad963758c31bc06587b1c09009" name="lib/filter/doctrine/PluginChatContentFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="4aec1ad5f7189a593db0d5d329512758" name="lib/filter/doctrine/PluginChatRoomFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="678c58bb6ffe386f142c63fc52d6de27" name="lib/filter/doctrine/PluginChatRoomMemberFormFilter.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="fe4bbd214dc7a00edcda5c58884e87ea" name="lib/form/doctrine/PluginChatContentForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="2eecd3ef4e6e4db4625bd8bbab3b08d0" name="lib/form/doctrine/PluginChatRoomForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="7a0fcf4e7e3a5e2f8dffc0e2d618e4b2" name="lib/form/doctrine/PluginChatRoomMemberForm.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="de3995f9a0503cd6b21d7badd05c0ae7" name="lib/helper/opChatHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="87f3f293803af37a5d93a26f2c1edede" name="lib/model/doctrine/PluginChatContent.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="a2b5fc105beec1cc78ff4cac55c5bc64" name="lib/model/doctrine/PluginChatContentTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="1f97acf928b5ba717ace92dbfe213ab9" name="lib/model/doctrine/PluginChatRoom.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="00e085407057467381e645d0a92fd9d1" name="lib/model/doctrine/PluginChatRoomMember.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="421ab9b3d8d09729f2699d1e4d6b3982" name="lib/model/doctrine/PluginChatRoomMemberTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c72271b029fcb4df2dcc7ea2e0d853a5" name="lib/model/doctrine/PluginChatRoomTable.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="b76c195afac40b8548181ba83beb6010" name="lib/routing/opChatPluginFrontendCollection.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="0e7cf16f2746ca4ec3a86a237457e194" name="lib/widget/opWidgetFormDateTime.class.php" role="data" />
    <file baseinstalldir="/" md5sum="25b04d5e2306bbc79824f120dc88d181" name="test/bootstrap/database.php" role="data" />
    <file baseinstalldir="/" md5sum="2089e76b9d0ae0fd4d222ee37ea68cb5" name="test/bootstrap/functional.php" role="data" />
    <file baseinstalldir="/" md5sum="4bfa4b596e946c8a283410a2e2ba4315" name="test/bootstrap/unit.php" role="data" />
@@ -96,11 +74,11 @@
    <file baseinstalldir="/" md5sum="8a98cacfcc151f2808c399543fd52679" name="test/functional/mobile_frontend/skeletonActionsTest.php" role="data" />
    <file baseinstalldir="/" md5sum="1faa199e87c1ce270e86edee706b37fd" name="test/functional/pc_frontend/skeletonActionsTest.php" role="data" />
    <file baseinstalldir="/" md5sum="52440ab0abcc01c98551283f1e9942e1" name="test/unit/model/SkeletonTest.php" role="data" />
-   <file baseinstalldir="/" md5sum="044af3c174e6d35290fa9838e5710c53" name="web/css/chat.css" role="data" />
+   <file baseinstalldir="/" md5sum="d41be7ac50a6eb95dbd2fb5614469bf4" name="web/css/chat.css" role="data" />
    <file baseinstalldir="/" md5sum="92676301edc4346dae3e4257d3f8482f" name="web/css/chat_command.css" role="data" />
-   <file baseinstalldir="/" md5sum="690b03a8be6511fc75bbf5587e0b5c07" name="web/js/chat.js" role="data" />
-   <file baseinstalldir="/" md5sum="e0d953e4e045e1348ffdc39c45e44c41" name="web/js/chat_src.js" role="data" />
-   <file baseinstalldir="/" md5sum="73f1eb20517c55bf9493b7dd6e480788" name="LICENSE" role="data" />
+   <file baseinstalldir="/" md5sum="2cb2e69ec4fe89335c41bd3a26d4135e" name="web/js/chat.js" role="data" />
+   <file baseinstalldir="/" md5sum="ba846475b05c6a3566bab19385ee9efa" name="web/js/chat_src.js" role="data" />
+   <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
   </dir>
  </contents>
  <dependencies>
@@ -141,36 +119,59 @@ none
    </stability>
    <date>2010-05-29</date>
    <license>Affero GPLv3</license>
-   <notes> * fixed a fixture of navigation (fixes #816) [Shogo Kawahara]
- * fixed chat.js for Ajax (fixes #817) [Shogo Kawahara]
- * fixed chat.js for refactoring [Shogo Kawahara]
- * チャットルームがオープン中でも過去ログが閲覧できるよう修正 (fixes #818) [upsilon]
- * チャットの受信が完了してから次のタイマーを開始するように修正 (fixes #829) [upsilon]
- * ChatRoomMemberTable, ChatRoomなどの引数をMemberオブジェクトからメンバーIDに統一 [upsilon]
- * チャットルーム閉鎖後も「編集」リンクが表示されてしまうのを修正 [upsilon]
- * JSON形式での通信に対応 (fixes #825) [upsilon]
- * プロフィールへのリンクを別窓表示に [upsilon]
- * 通信エラーが起きた場合にタイマーを停止する [upsilon]
- * メソッド名修正: responseJson -> renderJson [upsilon]
- * chat.jsをオブジェクト指向風に修正 [upsilon]
- * Chat.checkLastID()を一度だけ呼び出すように修正 [upsilon]
- * チャットルームが１つも無い場合にメッセージを表示する [upsilon]
- * チャットのレス番が桁上がりするときに更新が止まってしまう問題を修正 [upsilon]
- * 連投防止改善 (fixes #819) [Shogo Kawahara]
- * メンバーリストのリンクでポップアップするようにする [Shogo Kawahara]
- * JSON内容をエスケープするように変更 [Shogo Kawahara]
- * 本文の自動リンク [Shogo Kawahara]
- * チャットルーム一覧を最終書込日時の降順にする [upsilon]
- * チャットルーム一覧のキャッシュを有効に [upsilon]
- * IEではchat.jsがエラーになってしまう問題を回避 [upsilon]
- * コマンドのCSSをdl#chatviewにのみ適用 [upsilon]
- * チャットルーム作成者のページを別窓で開く [upsilon]
- * 「再接続する」リンクを常に最下部で表示するようにした [upsilon]
- * チャットルームへのリンクのtitle属性に最終投稿日時を追加 [upsilon]
- * チャットルーム作成時にchat/indexのキャッシュを削除 [upsilon]
- * 設定をコンストラクタで行えるように変更 [Shogo Kawahara]
- * 投稿で更新タイマーをリセットするようにする [Shogo Kawahara]
- * 過去ログへのリンクをチャットページに表示 [upsilon]
+   <notes>
+* fixed a fixture of navigation (fixes #816) [Shogo Kawahara]
+* fixed chat.js for Ajax (fixes #817) [Shogo Kawahara]
+* fixed chat.js for refactoring [Shogo Kawahara]
+* チャットルームがオープン中でも過去ログが閲覧できるよう修正 (fixes #818) [upsilon]
+* チャットの受信が完了してから次のタイマーを開始するように修正 (fixes #829) [upsilon]
+* ChatRoomMemberTable, ChatRoomなどの引数をMemberオブジェクトからメンバーIDに統一 [upsilon]
+* チャットルーム閉鎖後も「編集」リンクが表示されてしまうのを修正 [upsilon]
+* JSON形式での通信に対応 (fixes #825) [upsilon]
+* プロフィールへのリンクを別窓表示に [upsilon]
+* 通信エラーが起きた場合にタイマーを停止する [upsilon]
+* メソッド名修正: responseJson -&gt; renderJson [upsilon]
+* chat.jsをオブジェクト指向風に修正 [upsilon]
+* Chat.checkLastID()を一度だけ呼び出すように修正 [upsilon]
+* チャットルームが１つも無い場合にメッセージを表示する [upsilon]
+* チャットのレス番が桁上がりするときに更新が止まってしまう問題を修正 [upsilon]
+* 連投防止改善 (fixes #819) [Shogo Kawahara]
+* メンバーリストのリンクでポップアップするようにする [Shogo Kawahara]
+* JSON内容をエスケープするように変更 [Shogo Kawahara]
+* 本文の自動リンク [Shogo Kawahara]
+* チャットルーム一覧を最終書込日時の降順にする [upsilon]
+* チャットルーム一覧のキャッシュを有効に [upsilon]
+* IEではchat.jsがエラーになってしまう問題を回避 [upsilon]
+* コマンドのCSSをdl#chatviewにのみ適用 [upsilon]
+* チャットルーム作成者のページを別窓で開く [upsilon]
+* 「再接続する」リンクを常に最下部で表示するようにした [upsilon]
+* チャットルームへのリンクのtitle属性に最終投稿日時を追加 [upsilon]
+* チャットルーム作成時にchat/indexのキャッシュを削除 [upsilon]
+* 設定をコンストラクタで行えるように変更 [Shogo Kawahara]
+* 投稿で更新タイマーをリセットするようにする [Shogo Kawahara]
+* 過去ログへのリンクをチャットページに表示 [upsilon]
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-11-20</date>
+   <license>Apache</license>
+   <notes>
+* don't create duplicate restartLink's [upsilon]
+* dispatch op_chat.filter_message event for filtering chat message [upsilon]
+* cleanup message posting codes [upsilon]
+* do post message when creating new chatroom [upsilon]
+* modify layout of chat/show [upsilon]
+* change the license to Apache License 2.0 [upsilon]
+* Revert "チャットルーム一覧のキャッシュを有効に" [upsilon]
+* add support for &lt;op:*&gt; tags [upsilon]
    </notes>
   </release>
  </changelog>
