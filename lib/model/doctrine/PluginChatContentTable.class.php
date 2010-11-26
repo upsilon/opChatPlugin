@@ -127,4 +127,14 @@ class PluginChatContentTable extends Doctrine_Table
 
     return $pager;
   }
+
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object ChatContentTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('ChatContent');
+  }
 }

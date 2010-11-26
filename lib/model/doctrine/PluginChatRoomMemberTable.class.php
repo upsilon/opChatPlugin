@@ -91,4 +91,14 @@ class PluginChatRoomMemberTable extends Doctrine_Table
       return false;
     }
   }
+
+  /**
+   * Returns an instance of this class.
+   *
+   * @return object ChatRoomMemberTable
+   */
+  public static function getInstance()
+  {
+    return Doctrine_Core::getTable('ChatRoomMember');
+  }
 }
