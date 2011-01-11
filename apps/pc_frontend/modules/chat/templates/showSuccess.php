@@ -1,4 +1,5 @@
 <?php use_helper('Javascript') ?>
+<?php use_helper('opChat') ?>
 
 <?php slot('chatroom_body'); ?>
 
@@ -25,6 +26,11 @@
 <form id="chat_content" method="post" action="<?php echo url_for('@chatroom_post?id='.$room->id) ?>">
 <?php echo $form->renderHiddenFields() ?>
 
+<div id="config_sound" style="display: none">
+<input type="checkbox" id="is_enable_sound" />
+<label for="is_enable_sound">サウンドを有効にする</label>
+</div>
+
 <div id="chat_input">
 <?php echo $form['body'] ?>
 </div>
@@ -42,11 +48,14 @@
   'title' => $room->getTitle(),
 )) ?>
 
-<?php echo javascript_tag('
-var op_chat = new Chat({url: {
-  post: "'.url_for('@chatroom_post?id='.$room->id).'",
-  show: "'.url_for('@chatroom_show?id='.$room->id).'",
-  heartbeat: "'.url_for('@chatroom_heartbeat?id='.$room->id).'"
-}});
-') ?>
+<?php javascript_tag() ?>
+var op_chat = new Chat({
+  sounds: <?php echo json_encode(op_chat_get_sounds()) ?>,
+  url: {
+    post: "<?php echo url_for('@chatroom_post?id='.$room->id) ?>",
+    show: "<?php echo url_for('@chatroom_show?id='.$room->id) ?>",
+    heartbeat: "<?php echo url_for('@chatroom_heartbeat?id='.$room->id) ?>"
+  }
+});
+<?php end_javascript_tag() ?>
 

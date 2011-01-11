@@ -1,0 +1,17 @@
+====================
+About this directory
+====================
+
+Please set up the sounds used to chat in this directory.
+
+* notice.mp3
+
+This sound is used to notify generally.
+
+* in.mp3
+
+This sound is used to notify when member login.
+
+* out.mp3
+
+This sound is used to notify when member logout.

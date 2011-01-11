@@ -41,6 +41,7 @@ class PluginChatContentTable extends Doctrine_Table
     {
       $data = array(
         'number'      => $content->number,
+        'level'       => $content->level,
         'member_url'  => $controller->genUrl('@obj_member_profile?id='.$content->member_id),
         'member_name' => $content->Member->name,
         'command'     => $content->command,

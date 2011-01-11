@@ -60,3 +60,26 @@ function op_chat_get_title_and_count($room)
   return sprintf('%s (%d)', $room->title, $room->countChatContent());
 }
 
+function op_chat_get_sounds($absolute = false)
+{
+  use_helper('Asset');
+  static $sounds;
+  $result = array();
+  if (!is_array($sounds))
+  {
+    $sounds = array(
+      'in' => '/opChatPlugin/sounds/in.mp3',
+      'out' => '/opChatPlugin/sounds/out.mp3',
+      'notice' => '/opChatPlugin/sounds/notice.mp3'
+    );
+    foreach ($sounds as $name => $sound)
+    {
+      if (file_exists(sfConfig::get('sf_web_dir').$sound))
+      {
+        $result[$name] = _compute_public_path($sound, sfConfig::get('sf_web_dir', ''), 'mp3', $absolute);
+      }
+    }
+  }
+  $result = $sounds;
+  return $result;
+}

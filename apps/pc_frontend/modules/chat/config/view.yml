@@ -4,6 +4,7 @@ showSuccess:
     - /opChatPlugin/css/chat_command
   javascripts:
     - %SF_PROTOTYPE_WEB_DIR%/js/prototype
+    - %SF_PROTOTYPE_WEB_DIR%/js/sound
     - /opChatPlugin/js/chat
 
 logSuccess:
