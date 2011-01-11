@@ -1,0 +1,12 @@
+op_chat_index:
+  url: /opChatPlugin
+  param: { module: opChatPlugin, action: index }
+
+op_chat_update_interval:
+  url: /opChatPlugin/updateInterval
+  param: { module: opChatPlugin, action: updateInterval }
+  requirements: { sf_method: [post] }
+
+op_chat_nodefault:
+  url: /opChatPlugin/*
+  param: { module: default, action: error }
