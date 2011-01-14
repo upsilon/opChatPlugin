@@ -61,22 +61,30 @@ class PluginChatRoomMemberTable extends Doctrine_Table
     }
   }
 
-  public function getMembers($room_id)
+  public function countAllMembers()
+  {
+    return count($this->getMembers());
+  }
+
+  public function getMembers($room_id = null)
   {
     $query = $this->createQuery()
-      ->where('chat_room_id = ?', $room_id)
-      ->andWhere('is_active = true');
+      ->where('is_active = true')
+      ->groupBy('member_id');
 
-    $result = array();
-    foreach ($query->execute() as $record)
+    if ($room_id !== null)
     {
-      if (strtotime($record->updated_at) > strtotime('-3 minute'))
-      {
-        $result[] = $record;
-      }
+      $query->andWhere('chat_room_id = ?', $room_id);
     }
 
+    $result = array_filter($query->execute()->getData(), array($this, 'isOutOfTime'));
+
     return $result;
+  }
+
+  protected function isOutOfTime(ChatRoomMember $record)
+  {
+    return strtotime($record->updated_at) > strtotime('-3 minute');
   }
 
   public function isActive($room_id, $member_id)

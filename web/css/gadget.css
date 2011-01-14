@@ -1,0 +1,7 @@
+.chatStatusBox div.moreInfo {
+  text-align: right;
+}
+
+.chatStatusBox div.moreInfo ul.moreInfo {
+  display: inline-block;
+}

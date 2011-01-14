@@ -1,0 +1,6 @@
+charRoomStatus:
+  component: [chat, statusGadget]
+  caption:
+    ja_JP: 現在のチャットルームの状態
+  description:
+    ja_JP: チャットルーム内の人数などの情報を表示します。
