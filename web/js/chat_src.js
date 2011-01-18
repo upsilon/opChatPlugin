@@ -52,15 +52,16 @@ var Chat = Class.create({
   },
 
   onLoad: function (evt) {
-    if ($H(this.config.sounds).size() != 0) {
+    if (!this.isSoundConfigEmpty())
       $('config_sound').show();
+    if (this.getSoundEnabled())
       $('is_enable_sound').checked = 'checked';
-    }
 
     this.checkLastID();
     this.scroll($('chatview'));
 
     Event.observe('chat_content', 'submit', this.onSubmit.bind(this));
+    Event.observe('is_enable_sound', 'change', this.onChangeSoundConfig.bind(this));
 
     this.timerStart();
   },
@@ -75,9 +76,37 @@ var Chat = Class.create({
     Event.stop(evt);
   },
 
+  onChangeSoundConfig: function (evt) {
+    this.setSoundEnabled($F('is_enable_sound'));
+  },
+
   onRestartLinkClick: function (evt) {
     this.timerStart();
     Event.stop(evt);
+  },
+
+  setSoundEnabled: function (enabled) {
+    if (enabled)
+      localStorage['chat_sound_enabled'] = 'true';
+    else
+      localStorage['chat_sound_enabled'] = 'false';
+  },
+
+  getSoundEnabled: function () {
+    if (this.isSoundConfigEmpty())
+      return false;
+    if (localStorage['chat_sound_enabled'] != 'true')
+      return false;
+
+    return true;
+  },
+
+  isSoundConfigEmpty: function () {
+    // 1 ループでも実行されれば sounds は空ではないことになる
+    for (var i in this.config.sounds)
+      return false;
+
+    return true;
   },
 
   checkLastID: function () {
@@ -92,11 +121,8 @@ var Chat = Class.create({
   },
 
   playSound: function (name) {
-    if ($('is_enable_sound').checked) {
-      if (this.config.sounds[name]) {
-        Sound.play(this.config.sounds[name], {replace: true});
-      }
-    }
+    if (this.getSoundEnabled() && this.config.sounds[name])
+      Sound.play(this.config.sounds[name], {replace: true});
   },
 
   chatviewUpdated: function (response) {

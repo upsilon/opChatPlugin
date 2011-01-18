@@ -81,5 +81,5 @@ function op_chat_get_sounds($absolute = false)
     }
   }
 
-  return $result;
+  return empty($result) ? null : $result;
 }

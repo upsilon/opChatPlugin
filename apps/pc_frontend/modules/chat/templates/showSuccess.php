@@ -53,7 +53,9 @@ var op_chat = new Chat({
 <?php foreach (opChatPluginConfiguration::getIntervalConfigs() as $interval => $value): ?>
   <?php echo sprintf('%s: %d,', $interval, $value)."\n" ?>
 <?php endforeach ?>
-  sounds: <?php echo json_encode(op_chat_get_sounds()) ?>,
+<?php if (($sounds = op_chat_get_sounds()) !== null): ?>
+  sounds: <?php echo json_encode($sounds) ?>,
+<?php endif ?>
   url: {
     post: "<?php echo url_for('@chatroom_post?id='.$room->id) ?>",
     show: "<?php echo url_for('@chatroom_show?id='.$room->id) ?>",
