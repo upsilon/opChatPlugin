@@ -48,6 +48,13 @@ var Chat = Class.create({
          + '</dd>';
     this.restartLink = html;
 
+    Ajax.Responders.register({
+      onException: this.timerStop.bind(this),
+      onComplete: function (req) {
+        if (!req.success())
+          this.timerStop();
+      }.bind(this)
+    });
     Event.observe(window, 'load', this.onLoad.bind(this));
   },
 
@@ -168,13 +175,10 @@ var Chat = Class.create({
     new Ajax.Request(this.config.url['show'], {
       method: 'get',
       parameters: { view: 'chat', last: this.lastID },
-      insertion: Insertion.Bottom,
       onSuccess: function (response) {
         this.chatviewUpdated(response);
         this.startUpdateTimer();
-      }.bind(this),
-      onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this)
+      }.bind(this)
     });
   },
 
@@ -190,9 +194,7 @@ var Chat = Class.create({
     new Ajax.Updater({success: 'memberlist'}, this.config.url['show'], {
       method: 'get',
       parameters: { view: 'member' },
-      onSuccess: this.startUpdateMemberListTimer.bind(this),
-      onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this)
+      onSuccess: this.startUpdateMemberListTimer.bind(this)
     });
   },
 
@@ -206,7 +208,6 @@ var Chat = Class.create({
     new Ajax.Request(this.config.url['post'], {
       method: 'post',
       parameters: param,
-      insertion: Insertion.Bottom,
       onSuccess: function (response) {
         this.chatviewUpdated(response);
       }.bind(this),
@@ -219,9 +220,7 @@ var Chat = Class.create({
   heartbeat: function () {
     new Ajax.Request(this.config.url['heartbeat'], {
       method: 'post',
-      onSuccess: this.startHeartbeatTimer.bind(this),
-      onFailure: this.timerStop.bind(this),
-      onException: this.timerStop.bind(this)
+      onSuccess: this.startHeartbeatTimer.bind(this)
     });
   },
 
