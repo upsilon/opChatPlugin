@@ -80,6 +80,6 @@ function op_chat_get_sounds($absolute = false)
       }
     }
   }
-  $result = $sounds;
+
   return $result;
 }
