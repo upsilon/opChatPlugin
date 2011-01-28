@@ -23,6 +23,7 @@ class opChatPluginConfiguration extends sfPluginConfiguration
     'updateMemberListInterval' => 60,
     'heartbeatInterval' => 30,
   );
+  static protected $configPrefix = 'opchat_';
 
   public function initialize()
   {
@@ -32,9 +33,10 @@ class opChatPluginConfiguration extends sfPluginConfiguration
   {
     $configTable = Doctrine::getTable('SnsConfig');
     $configArray = array();
-    foreach (self::$defaultIntervalConfigs as $configName => $default)
+    foreach (self::$defaultIntervalConfigs as $key => $default)
     {
-      $configArray[$configName] = $configTable->get($configName, $default);
+      $configName = self::$configPrefix.sfInflector::underscore($key);
+      $configArray[$key] = $configTable->get($configName, $default);
     }
 
     return $configArray;
@@ -44,14 +46,16 @@ class opChatPluginConfiguration extends sfPluginConfiguration
   static public function setIntervalConfigs($values)
   {
     $configTable = Doctrine::getTable('SnsConfig');
-    foreach (self::$defaultIntervalConfigs as $configName => $default)
+    foreach (self::$defaultIntervalConfigs as $key => $default)
     {
-      if (!isset($values[$configName]))
+      if (!isset($values[$key]))
       {
         continue;
       }
 
-      $value = $values[$configName];
+      $configName = self::$configPrefix.sfInflector::underscore($key);
+      $value = $values[$key];
+
       if ($value === $default)
       {
         $record = $configTable->retrieveByName($configName);
